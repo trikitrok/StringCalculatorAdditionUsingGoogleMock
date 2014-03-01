@@ -5,6 +5,7 @@
 #include <cstdlib> 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/join.hpp>
+#include <boost/algorithm/string/regex.hpp>
 #include <boost/regex.hpp>
 
 NumbersExtractor::NumbersExtractor(DelimitersExtractor * delimitersExtractor) {
@@ -62,7 +63,11 @@ std::vector<int> NumbersExtractor::convertToInts(
 std::vector<std::string> NumbersExtractor::tokenize(const std::string & numbersSequence,
   const std::vector<std::string> & delimiters) const {
   std::vector<std::string> tokens;
-  boost::split(tokens, numbersSequence, 
-    boost::is_any_of(boost::join(delimiters, "")));
+
+  boost::algorithm::split_regex(
+    tokens, 
+    numbersSequence,
+    boost::regex(boost::join(delimiters, "|")));
+
   return tokens;
 }

@@ -18,6 +18,6 @@ private:
   std::vector<std::string> extractNumbersStrings(const std::string & numbersSequence) const;
   std::string extractAdditionalDelimiter(const std::string & numbersSequence) const;
   std::vector<int> convertToInts(const std::vector<std::string> & numbersStrings) const;
-  int toInt(const std::string & str) const;
+  int convertToInt(const std::string & str) const;
 };
 

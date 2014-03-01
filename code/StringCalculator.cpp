@@ -28,14 +28,15 @@ std::vector<std::string> StringCalculator::extractNumbersStrings(
 
   const std::string defaultDelimiters = ",\n";
 
-  std::string delimiters = defaultDelimiters + extractAdditionalDelimiter(numbersSequence);
+  std::string delimiters = defaultDelimiters + 
+    extractAdditionalDelimiter(numbersSequence);
 
   std::vector<std::string> numbersStrings;
   boost::split(numbersStrings, numbersSequence, boost::is_any_of(delimiters));
   return numbersStrings;
 }
 
-int StringCalculator::toInt(const std::string & str) const {
+int StringCalculator::convertToInt(const std::string & str) const {
   return atoi(str.c_str());
 }
 
@@ -43,7 +44,7 @@ std::vector<int> StringCalculator::convertToInts(
   const std::vector<std::string> & numbersStrings) const {
   std::vector<int> numbers;
   for (unsigned int i = 0; i < numbersStrings.size(); ++i) {
-    numbers.push_back(toInt(numbersStrings[i]));
+    numbers.push_back(convertToInt(numbersStrings[i]));
   }
   return numbers;
 }

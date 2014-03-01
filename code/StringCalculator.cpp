@@ -78,13 +78,18 @@ std::string StringCalculator::extractAdditionalDelimiter(const std::string & num
 }
 
 void StringCalculator::validate(const std::vector<int> & numbers) const {
+  std::vector<int> negatives = getNegatives(numbers);
+
+  if (!negatives.empty()) {
+    throw NegativeNumbersException("");
+  }
+}
+
+std::vector<int> StringCalculator::getNegatives(const std::vector<int> & numbers) const {
   std::vector<int> negatives;
   for (unsigned int i = 0; i < numbers.size(); ++i) {
     if (numbers[i] < 0)
       negatives.push_back(numbers[i]);
   }
-
-  if (!negatives.empty()) {
-    throw NegativeNumbersException("");
-  }
+  return negatives;
 }

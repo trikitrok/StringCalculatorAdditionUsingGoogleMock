@@ -20,5 +20,6 @@ private:
   std::vector<int> convertToInts(const std::vector<std::string> & numbersStrings) const;
   int convertToInt(const std::string & str) const;
   void validate(const std::vector<int> & numbers) const;
+  std::vector<int> getNegatives(const std::vector<int> & numbers) const;
 };
 

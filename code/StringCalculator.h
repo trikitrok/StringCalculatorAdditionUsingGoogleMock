@@ -21,5 +21,6 @@ private:
   int convertToInt(const std::string & str) const;
   void validate(const std::vector<int> & numbers) const;
   std::vector<int> getNegatives(const std::vector<int> & numbers) const;
+  std::string createNegativeNumbersListAsString(const std::vector<int> & negatives) const;
 };
 

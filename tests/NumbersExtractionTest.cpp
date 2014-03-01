@@ -36,7 +36,11 @@ TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByCommasOrNewLineCharacters) {
   ASSERT_THAT(numbersExtractor->extractFrom("1\n2, 3"), ElementsAre(1, 2, 3));
 }
 
-TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByAdditionalDelimiters) {
+TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByAdditionalDelimitersWithOneCharacter) {
   ASSERT_THAT(numbersExtractor->extractFrom("//[;]\n1;2"), ElementsAre(1, 2));
   ASSERT_THAT(numbersExtractor->extractFrom("//[@]\n1@2"), ElementsAre(1, 2));
+}
+
+TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByAdditionalDelimitersWithSeveralCharacters) {
+  ASSERT_THAT(numbersExtractor->extractFrom("//[;;]\n1;;2"), ElementsAre(1, 2));
 }

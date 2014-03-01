@@ -40,3 +40,7 @@ TEST_F(StringCalculatorAddition, ThrowsExceptionIfAnyNumberIsNegative) {
     ASSERT_THAT(e.what(), HasSubstr("-4, -6"));
   }
 }
+
+TEST_F(StringCalculatorAddition, IgnoreAnyNumberGreaterThan1000) {
+  ASSERT_THAT(stringCalculator.add("3, 1001, 6"), Eq(9));
+}

@@ -25,7 +25,18 @@ int StringCalculator::add(const std::vector<int> & numbers) const {
 std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSequence) const {
   std::vector<int> numbers = convertToInts(extractNumbersStrings(numbersSequence));
   validate(numbers);
-  return numbers;
+
+  return ignoreTooBig(numbers);
+}
+
+std::vector<int> StringCalculator::ignoreTooBig(const std::vector<int> & numbers) const {
+  std::vector<int> filteredNumbers;
+  for (unsigned int i = 0; i < numbers.size(); ++i) {
+    if (! (numbers[i] > 1000)) {
+      filteredNumbers.push_back(numbers[i]);
+    }
+  }
+  return filteredNumbers;
 }
 
 std::vector<std::string> StringCalculator::extractNumbersStrings(

@@ -20,7 +20,7 @@ std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSeq
   std::vector<int> numbers;
 
   for (unsigned int i = 0; i < numbersStrings.size(); ++i) {
-    numbers.push_back(atoi(numbersStrings[i].c_str()));
+    numbers.push_back(toInt(numbersStrings[i]));
   }
 
   return numbers;
@@ -34,4 +34,8 @@ int StringCalculator::add(const std::vector<int> & numbers) {
   }
 
   return res;
+}
+
+int StringCalculator::toInt(const std::string & str) {
+  return atoi(str.c_str());
 }

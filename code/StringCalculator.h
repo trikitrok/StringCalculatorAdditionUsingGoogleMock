@@ -15,5 +15,7 @@ private:
   int add(const std::vector<int> & numbers);
 
   std::vector<int> extractNumbers(const std::string & numbersSequence);
+
+  int toInt(const std::string & str);
 };
 

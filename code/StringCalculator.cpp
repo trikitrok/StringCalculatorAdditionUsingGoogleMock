@@ -25,7 +25,6 @@ int StringCalculator::add(const std::vector<int> & numbers) const {
 std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSequence) const {
   std::vector<int> numbers = convertToInts(extractNumbersStrings(numbersSequence));
   validate(numbers);
-
   return ignoreTooBig(numbers);
 }
 
@@ -48,7 +47,7 @@ std::vector<std::string> StringCalculator::extractNumbersStrings(
 
   const std::string defaultDelimiters = ",\n";
 
-  std::string delimiters = defaultDelimiters + 
+  std::string delimiters = defaultDelimiters +
     extractAdditionalDelimiter(numbersSequence);
 
   std::vector<std::string> numbersStrings;
@@ -69,7 +68,8 @@ std::vector<int> StringCalculator::convertToInts(
   return numbers;
 }
 
-std::string StringCalculator::extractAdditionalDelimiter(const std::string & numbersSequence) const {
+std::string StringCalculator::extractAdditionalDelimiter(
+  const std::string & numbersSequence) const {
   std::string additionalDelimiter = "";
 
   int endAdditionalDelimiterDefinition = numbersSequence.find("]\n");

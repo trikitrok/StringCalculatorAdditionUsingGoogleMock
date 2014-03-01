@@ -27,15 +27,8 @@ std::vector<std::string> StringCalculator::extractNumbersStrings(
   const std::string & numbersSequence) const {
 
   const std::string defaultDelimiters = ",\n";
-  std::string additionalDelimiter = "";
 
-  int endAdditionalDelimiterDefinition = numbersSequence.find("]\n");
-
-  if (endAdditionalDelimiterDefinition != std::string::npos) {
-    additionalDelimiter = numbersSequence[endAdditionalDelimiterDefinition - 1];
-  }
-
-  std::string delimiters = defaultDelimiters + additionalDelimiter;
+  std::string delimiters = defaultDelimiters + extractAdditionalDelimiter(numbersSequence);
 
   std::vector<std::string> numbersStrings;
   boost::split(numbersStrings, numbersSequence, boost::is_any_of(delimiters));
@@ -53,4 +46,16 @@ std::vector<int> StringCalculator::convertToInts(
     numbers.push_back(toInt(numbersStrings[i]));
   }
   return numbers;
+}
+
+std::string StringCalculator::extractAdditionalDelimiter(const std::string & numbersSequence) const {
+  std::string additionalDelimiter = "";
+
+  int endAdditionalDelimiterDefinition = numbersSequence.find("]\n");
+
+  if (endAdditionalDelimiterDefinition != std::string::npos) {
+    additionalDelimiter = numbersSequence[endAdditionalDelimiterDefinition - 1];
+  }
+
+  return additionalDelimiter;
 }

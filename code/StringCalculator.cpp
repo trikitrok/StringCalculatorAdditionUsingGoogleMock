@@ -26,8 +26,12 @@ std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSeq
 std::vector<std::string> StringCalculator::extractNumbersStrings(
   const std::string & numbersSequence) const {
 
+  const std::string defaultDelimiters = ",\n";
+  std::string additionalDelimiter = ";";
+  std::string delimiters = defaultDelimiters + additionalDelimiter;
+
   std::vector<std::string> numbersStrings;
-  boost::split(numbersStrings, numbersSequence, boost::is_any_of(",\n;"));
+  boost::split(numbersStrings, numbersSequence, boost::is_any_of(delimiters));
   return numbersStrings;
 }
 

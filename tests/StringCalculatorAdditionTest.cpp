@@ -20,4 +20,5 @@ TEST(StringCalculatorAddition, AddsNumbersSeparatedByCommas) {
   StringCalculator stringCalculator;
 
   ASSERT_THAT(stringCalculator.add("2, 4"), Eq(6));
+  ASSERT_THAT(stringCalculator.add("3, 4, 6"), Eq(13));
 }

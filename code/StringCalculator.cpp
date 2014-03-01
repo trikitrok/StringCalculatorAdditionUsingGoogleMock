@@ -32,11 +32,15 @@ std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSeq
 std::vector<int> StringCalculator::ignoreTooBig(const std::vector<int> & numbers) const {
   std::vector<int> filteredNumbers;
   for (unsigned int i = 0; i < numbers.size(); ++i) {
-    if (! (numbers[i] > 1000)) {
+    if (notTooBig(numbers[i])) {
       filteredNumbers.push_back(numbers[i]);
     }
   }
   return filteredNumbers;
+}
+
+bool StringCalculator::notTooBig(int number) const {
+  return !(number > 1000);
 }
 
 std::vector<std::string> StringCalculator::extractNumbersStrings(

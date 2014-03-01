@@ -16,6 +16,7 @@ private:
 
   std::vector<int> extractNumbers(const std::string & numbersSequence) const;
   std::vector<int> ignoreTooBig(const std::vector<int> & numbers) const;
+  bool notTooBig(int number) const;
   std::vector<std::string> extractNumbersStrings(const std::string & numbersSequence) const;
   std::string extractAdditionalDelimiter(const std::string & numbersSequence) const;
   std::vector<int> convertToInts(const std::vector<std::string> & numbersStrings) const;

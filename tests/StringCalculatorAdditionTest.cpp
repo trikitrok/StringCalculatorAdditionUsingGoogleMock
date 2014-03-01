@@ -9,3 +9,9 @@ TEST(StringCalculatorAddition, ReturnsZeroWhenItReceivesAnEmptySequence) {
 
   ASSERT_THAT(stringCalculator.add(""), Eq(0));
 }
+
+TEST(StringCalculatorAddition, ReturnsOnlyNumberInSequence) {
+  StringCalculator stringCalculator;
+
+  ASSERT_THAT(stringCalculator.add("5"), Eq(5));
+}

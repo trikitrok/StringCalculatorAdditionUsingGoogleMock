@@ -19,5 +19,6 @@ private:
   std::string extractAdditionalDelimiter(const std::string & numbersSequence) const;
   std::vector<int> convertToInts(const std::vector<std::string> & numbersStrings) const;
   int convertToInt(const std::string & str) const;
+  void validate(const std::vector<int> & numbers) const;
 };
 

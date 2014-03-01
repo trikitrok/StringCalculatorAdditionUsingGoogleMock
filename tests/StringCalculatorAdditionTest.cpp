@@ -24,3 +24,7 @@ TEST_F(StringCalculatorAddition, AddsNumbersSeparatedByCommas) {
 TEST_F(StringCalculatorAddition, AddsNumbersSeparatedByCommasOrNewLineCharacters) {
   ASSERT_THAT(stringCalculator.add("1\n2, 3"), Eq(6));
 }
+
+TEST_F(StringCalculatorAddition, AddsNumbersSeparatedByAdditionalDelimiters) {
+  ASSERT_THAT(stringCalculator.add("//[;]\n1;2"), Eq(3));
+}

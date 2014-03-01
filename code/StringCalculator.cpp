@@ -23,7 +23,8 @@ std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSeq
   return convertToInts(extractNumbersStrings(numbersSequence));
 }
 
-std::vector<std::string> StringCalculator::extractNumbersStrings(const std::string & numbersSequence) const {
+std::vector<std::string> StringCalculator::extractNumbersStrings(
+  const std::string & numbersSequence) const {
   std::vector<std::string> numbersStrings;
   boost::split(numbersStrings, numbersSequence, boost::is_any_of(","));
   return numbersStrings;

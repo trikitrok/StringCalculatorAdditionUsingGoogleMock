@@ -1,14 +1,19 @@
 #include "NumbersExtractor.h"
 
+#include "DelimitersExtractor.h"
+
 #include <cstdlib> 
 #include <boost/algorithm/string.hpp>
 #include <boost/regex.hpp>
 
-NumbersExtractor::NumbersExtractor() 
-{}
+NumbersExtractor::NumbersExtractor(DelimitersExtractor * delimitersExtractor) {
+  this->delimitersExtractor = delimitersExtractor;
 
-NumbersExtractor::~NumbersExtractor() 
-{}
+}
+
+NumbersExtractor::~NumbersExtractor() {
+  delete delimitersExtractor;
+}
 
 std::vector<int> NumbersExtractor::extractFrom(const std::string & numbersSequence) const {
   return convertToInts(extractNumbersStrings(numbersSequence));
@@ -16,8 +21,7 @@ std::vector<int> NumbersExtractor::extractFrom(const std::string & numbersSequen
 
 std::vector<std::string> NumbersExtractor::extractNumbersStrings(
   const std::string & numbersSequence) const {
-
-  std::string delimiters = getDelimiters(numbersSequence);
+  std::string delimiters = delimitersExtractor->extractDelimiters(numbersSequence);
   return filterOutNotNumericTokens(tokenize(numbersSequence, delimiters));
 }
 
@@ -38,7 +42,6 @@ std::vector<std::string> NumbersExtractor::filterOutNotNumericTokens(const std::
 }
 
 bool NumbersExtractor::isNotNumeric(const std::string & token) const {
-
   const boost::regex e("\\s*[+-]?([1-9][0-9]*|0[0-7]*|0[xX][0-9a-fA-F]+)");
   return ! boost::regex_match(token, e);
 }
@@ -56,27 +59,9 @@ std::vector<int> NumbersExtractor::convertToInts(
   return numbers;
 }
 
-std::string NumbersExtractor::extractAdditionalDelimiter(
-  const std::string & numbersSequence) const {
-  std::string additionalDelimiter = "";
-
-  int endAdditionalDelimiterDefinition = numbersSequence.find("]\n");
-
-  if (endAdditionalDelimiterDefinition != std::string::npos) {
-    additionalDelimiter = numbersSequence[endAdditionalDelimiterDefinition - 1];
-  }
-
-  return additionalDelimiter;
-}
-
 std::vector<std::string> NumbersExtractor::tokenize(const std::string & numbersSequence,
   const std::string & delimiters) const {
   std::vector<std::string> tokens;
   boost::split(tokens, numbersSequence, boost::is_any_of(delimiters));
   return tokens;
-}
-
-std::string NumbersExtractor::getDelimiters(const std::string & numbersSequence) const {
-  const std::string defaultDelimiters = ",\n";
-  return defaultDelimiters + extractAdditionalDelimiter(numbersSequence);
 }

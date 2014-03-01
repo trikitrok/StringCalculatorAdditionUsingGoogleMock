@@ -5,6 +5,7 @@
 #include "..\code\NumbersValidator.h"
 #include "..\code\NumbersFilter.h"
 #include "..\code\NegativeNumbersException.h"
+#include "..\code\DelimitersExtractor.h"
 
 using namespace ::testing;
 
@@ -14,7 +15,7 @@ public:
 
   void SetUp() {
     stringCalculator = new StringCalculator(
-      new NumbersExtractor,
+      new NumbersExtractor(new DelimitersExtractor(",\n")),
       new NumbersValidator, 
       new NumbersFilter);
   }

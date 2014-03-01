@@ -2,6 +2,7 @@
 
 #include <cstdlib> 
 #include <boost/algorithm/string.hpp>
+#include "NegativeNumbersException.h"
 
 StringCalculator::StringCalculator() {}
 
@@ -20,7 +21,20 @@ int StringCalculator::add(const std::vector<int> & numbers) const {
 }
 
 std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSequence) const {
-  return convertToInts(extractNumbersStrings(numbersSequence));
+
+  std::vector<int> numbers = convertToInts(extractNumbersStrings(numbersSequence));
+
+  std::vector<int> negatives;
+  for (unsigned int i = 0; i < numbers.size(); ++i) {
+    if (numbers[i] < 0)
+      negatives.push_back(numbers[i]);
+  }
+
+  if (!negatives.empty()) {
+    throw NegativeNumbersException("");
+  }
+
+  return numbers;
 }
 
 std::vector<std::string> StringCalculator::extractNumbersStrings(

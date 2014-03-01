@@ -1,6 +1,7 @@
 #include <gmock\gmock.h>
 
 #include "..\code\StringCalculator.h"
+#include "..\code\NegativeNumbersException.h"
 
 using namespace ::testing;
 
@@ -28,4 +29,14 @@ TEST_F(StringCalculatorAddition, AddsNumbersSeparatedByCommasOrNewLineCharacters
 TEST_F(StringCalculatorAddition, AddsNumbersSeparatedByAdditionalDelimiters) {
   ASSERT_THAT(stringCalculator.add("//[;]\n1;2"), Eq(3));
   ASSERT_THAT(stringCalculator.add("//[@]\n1@2"), Eq(3));
+}
+
+TEST_F(StringCalculatorAddition, ThrowsExceptionIfAnyNumberIsNegative) {
+  try {
+    stringCalculator.add("3, -4, 5, -6");
+    FAIL();
+  } catch (NegativeNumbersException & e) {
+    ASSERT_THAT(e.what(), HasSubstr("Negative numbers not allowed"));
+    //ASSERT_THAT(e.what(), HasSubstr("-4, -6"));
+  }
 }

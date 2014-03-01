@@ -1,14 +1,19 @@
 #include "StringCalculator.h"
 
 #include "NegativeNumbersException.h"
+#include "NumbersExtractor.h"
 
 #include <cstdlib> 
 #include <boost/algorithm/string.hpp>
 #include <sstream>
 
-StringCalculator::StringCalculator() {}
+StringCalculator::StringCalculator(NumbersExtractor * numberExtractor) {
+  this->numberExtractor = numberExtractor;
+}
 
-StringCalculator::~StringCalculator() {}
+StringCalculator::~StringCalculator() {
+  delete numberExtractor;
+}
 
 int StringCalculator::add(const std::string & numbersSequence) const {
   return add(extractNumbers(numbersSequence));
@@ -23,7 +28,7 @@ int StringCalculator::add(const std::vector<int> & numbers) const {
 }
 
 std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSequence) const {
-  std::vector<int> numbers = convertToInts(extractNumbersStrings(numbersSequence));
+  std::vector<int> numbers = this->numberExtractor->extractNumbers(numbersSequence);
   validate(numbers);
   return ignoreTooBig(numbers);
 }
@@ -40,45 +45,6 @@ std::vector<int> StringCalculator::ignoreTooBig(const std::vector<int> & numbers
 
 bool StringCalculator::notTooBig(int number) const {
   return !(number > 1000);
-}
-
-std::vector<std::string> StringCalculator::extractNumbersStrings(
-  const std::string & numbersSequence) const {
-
-  const std::string defaultDelimiters = ",\n";
-
-  std::string delimiters = defaultDelimiters +
-    extractAdditionalDelimiter(numbersSequence);
-
-  std::vector<std::string> numbersStrings;
-  boost::split(numbersStrings, numbersSequence, boost::is_any_of(delimiters));
-  return numbersStrings;
-}
-
-int StringCalculator::convertToInt(const std::string & str) const {
-  return atoi(str.c_str());
-}
-
-std::vector<int> StringCalculator::convertToInts(
-  const std::vector<std::string> & numbersStrings) const {
-  std::vector<int> numbers;
-  for (unsigned int i = 0; i < numbersStrings.size(); ++i) {
-    numbers.push_back(convertToInt(numbersStrings[i]));
-  }
-  return numbers;
-}
-
-std::string StringCalculator::extractAdditionalDelimiter(
-  const std::string & numbersSequence) const {
-  std::string additionalDelimiter = "";
-
-  int endAdditionalDelimiterDefinition = numbersSequence.find("]\n");
-
-  if (endAdditionalDelimiterDefinition != std::string::npos) {
-    additionalDelimiter = numbersSequence[endAdditionalDelimiterDefinition - 1];
-  }
-
-  return additionalDelimiter;
 }
 
 void StringCalculator::validate(const std::vector<int> & numbers) const {

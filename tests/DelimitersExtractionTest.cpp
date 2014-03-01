@@ -20,7 +20,6 @@ public:
   }
 };
 
-
 TEST_F(ADelimitersExtractor, ExtractsDefaultDelimiters) {
   ASSERT_THAT(delimitersExtractor->extractDelimitersList("3, 4, 6"), 
     ElementsAre(",", "\n"));
@@ -29,4 +28,9 @@ TEST_F(ADelimitersExtractor, ExtractsDefaultDelimiters) {
 TEST_F(ADelimitersExtractor, ExtractsDefaultAndAdditionalOneCharacterDelimiter) {
   ASSERT_THAT(delimitersExtractor->extractDelimitersList("//[@]\n1@2"),
     ElementsAre(",", "\n", "@"));
+}
+
+TEST_F(ADelimitersExtractor, ExtractsDefaultAndAdditionalDelimiterWithMoreThanOneCharacter) {
+  ASSERT_THAT(delimitersExtractor->extractDelimitersList("//[@@]\n1@2"),
+    ElementsAre(",", "\n", "@@"));
 }

@@ -23,10 +23,12 @@ std::string DelimitersExtractor::extractAdditionalDelimiter(
   const std::string & numbersSequence) const {
   std::string additionalDelimiter = "";
 
-  int endAdditionalDelimiterDefinition = numbersSequence.find("]\n");
+  int beginDelimiter = numbersSequence.find("//[") + 3;
+  int endDelimiter = numbersSequence.find("]\n");
+  int delimiterSize = endDelimiter - beginDelimiter;
 
-  if (endAdditionalDelimiterDefinition != std::string::npos) {
-    additionalDelimiter = numbersSequence[endAdditionalDelimiterDefinition - 1];
+  if (endDelimiter != std::string::npos) {
+    additionalDelimiter = numbersSequence.substr(beginDelimiter, delimiterSize);
   }
 
   return additionalDelimiter;

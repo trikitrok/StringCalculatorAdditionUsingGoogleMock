@@ -4,6 +4,7 @@
 
 #include <cstdlib> 
 #include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/join.hpp>
 #include <boost/regex.hpp>
 
 NumbersExtractor::NumbersExtractor(DelimitersExtractor * delimitersExtractor) {
@@ -21,7 +22,7 @@ std::vector<int> NumbersExtractor::extractFrom(const std::string & numbersSequen
 
 std::vector<std::string> NumbersExtractor::extractNumbersStrings(
   const std::string & numbersSequence) const {
-  std::string delimiters = delimitersExtractor->extractDelimiters(numbersSequence);
+  std::string delimiters = boost::algorithm::join(delimitersExtractor->extractDelimitersList(numbersSequence), "");
   return filterOutNotNumericTokens(tokenize(numbersSequence, delimiters));
 }
 

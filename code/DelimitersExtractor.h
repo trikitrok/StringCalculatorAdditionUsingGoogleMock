@@ -1,17 +1,18 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 class DelimitersExtractor
 {
 public:
-  DelimitersExtractor(const std::string & defaultDelimiters);
+  DelimitersExtractor(const std::vector<std::string> & defaultDelimiters);
   virtual ~DelimitersExtractor();
 
-  std::string extractDelimiters(const std::string & numbersSequence) const;
+  std::vector<std::string> extractDelimitersList(const std::string & numbersSequence) const;
 
 private:
-  std::string defaultDelimiters;
+  std::vector<std::string> defaultDelimiters;
 
   std::string extractAdditionalDelimiter(const std::string & numbersSequence) const;
 };

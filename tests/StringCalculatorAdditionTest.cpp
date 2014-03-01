@@ -14,8 +14,9 @@ public:
   StringCalculator * stringCalculator;
 
   void SetUp() {
+    std::vector<std::string> DefaultDelimiters = {",", "\n"};
     stringCalculator = new StringCalculator(
-      new NumbersExtractor(new DelimitersExtractor(",\n")),
+      new NumbersExtractor(new DelimitersExtractor(DefaultDelimiters)),
       new NumbersValidator, 
       new NumbersFilter);
   }

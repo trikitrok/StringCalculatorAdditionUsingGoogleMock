@@ -1,15 +1,22 @@
 #include "DelimitersExtractor.h"
 
-DelimitersExtractor::DelimitersExtractor(const std::string & defaultDelimiters) {
+DelimitersExtractor::DelimitersExtractor(const std::vector<std::string> & defaultDelimiters) {
   this->defaultDelimiters = defaultDelimiters;
 }
 
 DelimitersExtractor::~DelimitersExtractor() 
 {}
 
-std::string DelimitersExtractor::extractDelimiters(const std::string & numbersSequence) const {
-  //const std::string defaultDelimiters = ",\n";
-  return defaultDelimiters + extractAdditionalDelimiter(numbersSequence);
+std::vector<std::string> DelimitersExtractor::extractDelimitersList(const std::string & numbersSequence) const {
+  
+  std::vector<std::string> delimiters(defaultDelimiters);
+
+  std::string additionalDelimiter = extractAdditionalDelimiter(numbersSequence);
+
+  if (additionalDelimiter != "")
+    delimiters.push_back(additionalDelimiter);
+
+  return delimiters;
 }
 
 std::string DelimitersExtractor::extractAdditionalDelimiter(

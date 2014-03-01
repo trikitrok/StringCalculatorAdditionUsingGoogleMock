@@ -10,7 +10,8 @@ public:
   NumbersExtractor * numbersExtractor;
 
   void SetUp() {
-    numbersExtractor = new NumbersExtractor(new DelimitersExtractor(",\n"));
+    std::vector<std::string> DefaultDelimiters = {",", "\n"};
+    numbersExtractor = new NumbersExtractor(new DelimitersExtractor(DefaultDelimiters));
   }
 
   void TearDown() {

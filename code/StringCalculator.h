@@ -5,12 +5,14 @@
 
 class NumbersExtractor;
 class NumbersValidator;
+class NumbersFilter;
 
 class StringCalculator
 {
 public:
   StringCalculator(NumbersExtractor * numberExtractor,
-    NumbersValidator * numbersValidator);
+    NumbersValidator * numbersValidator,
+    NumbersFilter * numbersFilter);
   virtual ~StringCalculator();
 
   int add(const std::string & numbersSequence) const;
@@ -18,11 +20,10 @@ public:
 private:
   NumbersExtractor * numberExtractor;
   NumbersValidator * numbersValidator;
+  NumbersFilter * numbersFilter;
 
   int add(const std::vector<int> & numbers) const;
 
   std::vector<int> extractNumbers(const std::string & numbersSequence) const;
-  std::vector<int> ignoreTooBig(const std::vector<int> & numbers) const;
-  bool notTooBig(int number) const;
 };
 

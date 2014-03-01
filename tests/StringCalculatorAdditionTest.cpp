@@ -3,6 +3,7 @@
 #include "..\code\StringCalculator.h"
 #include "..\code\NumbersExtractor.h"
 #include "..\code\NumbersValidator.h"
+#include "..\code\NumbersFilter.h"
 #include "..\code\NegativeNumbersException.h"
 
 using namespace ::testing;
@@ -14,7 +15,8 @@ public:
   void SetUp() {
     stringCalculator = new StringCalculator(
       new NumbersExtractor,
-      new NumbersValidator);
+      new NumbersValidator, 
+      new NumbersFilter);
   }
 
   void TearDown() {

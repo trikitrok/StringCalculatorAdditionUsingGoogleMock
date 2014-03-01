@@ -14,9 +14,8 @@ int StringCalculator::add(const std::string & numbersSequence) {
 }
 
 std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSequence) {
-  std::vector<std::string> numbersStrings;
-  boost::split(numbersStrings, numbersSequence, boost::is_any_of(","));
-
+  std::vector<std::string> numbersStrings = extractNumbersStrings(numbersSequence);
+ 
   std::vector<int> numbers;
 
   for (unsigned int i = 0; i < numbersStrings.size(); ++i) {
@@ -24,6 +23,12 @@ std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSeq
   }
 
   return numbers;
+}
+
+std::vector<std::string> StringCalculator::extractNumbersStrings(const std::string & numbersSequence) {
+  std::vector<std::string> numbersStrings;
+  boost::split(numbersStrings, numbersSequence, boost::is_any_of(","));
+  return numbersStrings;
 }
 
 int StringCalculator::add(const std::vector<int> & numbers) {

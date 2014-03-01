@@ -8,23 +8,9 @@ StringCalculator::StringCalculator() {}
 StringCalculator::~StringCalculator() {}
 
 int StringCalculator::add(const std::string & numbersSequence) {
-  if (numbersSequence.empty())
-    return 0;
+  std::vector<int> numbers = extractNumbers(numbersSequence);
 
-  if (numbersSequence.find(",") != std::string::npos) {
-
-    std::vector<int> numbers = extractNumbers(numbersSequence);
-
-    int res = 0;
-
-    for (unsigned int i = 0; i < numbers.size(); ++i) {
-      res += numbers[i];
-    }
-
-    return res;
-  }
-
-  return atoi(numbersSequence.c_str());
+  return add(numbers);
 }
 
 std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSequence) {
@@ -38,4 +24,14 @@ std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSeq
   }
 
   return numbers;
+}
+
+int StringCalculator::add(const std::vector<int> & numbers) {
+  int res = 0;
+
+  for (unsigned int i = 0; i < numbers.size(); ++i) {
+    res += numbers[i];
+  }
+
+  return res;
 }

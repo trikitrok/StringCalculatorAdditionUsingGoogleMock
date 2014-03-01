@@ -9,7 +9,6 @@
 
 NumbersExtractor::NumbersExtractor(DelimitersExtractor * delimitersExtractor) {
   this->delimitersExtractor = delimitersExtractor;
-
 }
 
 NumbersExtractor::~NumbersExtractor() {
@@ -22,7 +21,7 @@ std::vector<int> NumbersExtractor::extractFrom(const std::string & numbersSequen
 
 std::vector<std::string> NumbersExtractor::extractNumbersStrings(
   const std::string & numbersSequence) const {
-  std::string delimiters = boost::algorithm::join(delimitersExtractor->extractDelimitersList(numbersSequence), "");
+  std::vector<std::string> delimiters = delimitersExtractor->extractDelimitersList(numbersSequence);
   return filterOutNotNumericTokens(tokenize(numbersSequence, delimiters));
 }
 
@@ -61,8 +60,9 @@ std::vector<int> NumbersExtractor::convertToInts(
 }
 
 std::vector<std::string> NumbersExtractor::tokenize(const std::string & numbersSequence,
-  const std::string & delimiters) const {
+  const std::vector<std::string> & delimiters) const {
   std::vector<std::string> tokens;
-  boost::split(tokens, numbersSequence, boost::is_any_of(delimiters));
+  boost::split(tokens, numbersSequence, 
+    boost::is_any_of(boost::join(delimiters, "")));
   return tokens;
 }

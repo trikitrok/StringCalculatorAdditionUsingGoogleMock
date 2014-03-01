@@ -37,6 +37,6 @@ TEST_F(StringCalculatorAddition, ThrowsExceptionIfAnyNumberIsNegative) {
     FAIL();
   } catch (NegativeNumbersException & e) {
     ASSERT_THAT(e.what(), HasSubstr("Negative numbers not allowed"));
-    //ASSERT_THAT(e.what(), HasSubstr("-4, -6"));
+    ASSERT_THAT(e.what(), HasSubstr("-4, -6"));
   }
 }

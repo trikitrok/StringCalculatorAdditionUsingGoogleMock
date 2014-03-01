@@ -1,8 +1,10 @@
 #include "StringCalculator.h"
 
+#include "NegativeNumbersException.h"
+
 #include <cstdlib> 
 #include <boost/algorithm/string.hpp>
-#include "NegativeNumbersException.h"
+#include <sstream>
 
 StringCalculator::StringCalculator() {}
 
@@ -21,21 +23,8 @@ int StringCalculator::add(const std::vector<int> & numbers) const {
 }
 
 std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSequence) const {
-
   std::vector<int> numbers = convertToInts(extractNumbersStrings(numbersSequence));
-
-  //std::vector<int> negatives;
-  //for (unsigned int i = 0; i < numbers.size(); ++i) {
-  //  if (numbers[i] < 0)
-  //    negatives.push_back(numbers[i]);
-  //}
-
-  //if (!negatives.empty()) {
-  //  throw NegativeNumbersException("");
-  //}
-
   validate(numbers);
-
   return numbers;
 }
 
@@ -81,7 +70,14 @@ void StringCalculator::validate(const std::vector<int> & numbers) const {
   std::vector<int> negatives = getNegatives(numbers);
 
   if (!negatives.empty()) {
-    throw NegativeNumbersException("");
+
+    std::ostringstream numbersList;
+    for (unsigned int i = 0; i < negatives.size() - 1; ++i) {
+      numbersList << negatives[i] << ", ";
+    }
+    numbersList << negatives[negatives.size() - 1];
+
+    throw NegativeNumbersException(numbersList.str());
   }
 }
 

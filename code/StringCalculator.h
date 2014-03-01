@@ -9,14 +9,14 @@ public:
   StringCalculator();
   virtual ~StringCalculator();
 
-  int add(const std::string & numbersSequence);
+  int add(const std::string & numbersSequence) const;
 
 private:
-  int add(const std::vector<int> & numbers);
+  int add(const std::vector<int> & numbers) const;
 
-  std::vector<int> extractNumbers(const std::string & numbersSequence);
-  std::vector<std::string> extractNumbersStrings(const std::string & numbersSequence);
-  std::vector<int> convertToInts(const std::vector<std::string> & numbersStrings);
-  int toInt(const std::string & str);
+  std::vector<int> extractNumbers(const std::string & numbersSequence) const;
+  std::vector<std::string> extractNumbersStrings(const std::string & numbersSequence) const;
+  std::vector<int> convertToInts(const std::vector<std::string> & numbersStrings) const;
+  int toInt(const std::string & str) const;
 };
 

@@ -10,8 +10,14 @@ TEST(StringCalculatorAddition, ReturnsZeroWhenItReceivesAnEmptySequence) {
   ASSERT_THAT(stringCalculator.add(""), Eq(0));
 }
 
-TEST(StringCalculatorAddition, ReturnsOnlyNumberInSequence) {
+TEST(StringCalculatorAddition, ReturnsTheOnlyNumberInSequence) {
   StringCalculator stringCalculator;
 
   ASSERT_THAT(stringCalculator.add("5"), Eq(5));
+}
+
+TEST(StringCalculatorAddition, AddsNumbersSeparatedByCommas) {
+  StringCalculator stringCalculator;
+
+  ASSERT_THAT(stringCalculator.add("2, 4"), Eq(6));
 }

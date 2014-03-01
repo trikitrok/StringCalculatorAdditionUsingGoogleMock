@@ -22,7 +22,7 @@ std::vector<std::string> NumbersExtractor::extractNumbersStrings(
 }
 
 std::vector<std::string> NumbersExtractor::filterOutNotNumericTokens(const std::vector<std::string> & tokens) const {
-  std::vector<std::string> notEmptyToken;
+  std::vector<std::string> numericTokens;
 
   for (unsigned int i = 0; i < tokens.size(); ++i) {
     std::string token = tokens[i];
@@ -31,16 +31,16 @@ std::vector<std::string> NumbersExtractor::filterOutNotNumericTokens(const std::
       continue;
     }
 
-    notEmptyToken.push_back(tokens[i]);
+    numericTokens.push_back(tokens[i]);
   }
 
-  return notEmptyToken;
+  return numericTokens;
 }
 
 bool NumbersExtractor::isNotNumeric(const std::string & token) const {
 
   const boost::regex e("\\s*[+-]?([1-9][0-9]*|0[0-7]*|0[xX][0-9a-fA-F]+)");
-  return !boost::regex_match(token, e);
+  return ! boost::regex_match(token, e);
 }
 
 int NumbersExtractor::convertToInt(const std::string & str) const {

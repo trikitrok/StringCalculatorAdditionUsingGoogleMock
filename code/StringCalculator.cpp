@@ -32,7 +32,7 @@ int StringCalculator::add(const std::vector<int> & numbers) const {
 }
 
 std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSequence) const {
-  std::vector<int> numbers = this->numberExtractor->extractNumbers(numbersSequence);
+  std::vector<int> numbers = this->numberExtractor->extractFrom(numbersSequence);
   numbersValidator->validate(numbers);
   return numbersFilter->ignoreTooBig(numbers);
 }

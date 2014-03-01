@@ -1,0 +1,4 @@
+*.tlog
+Debug/vc120.idb
+StringCalculator.vcxproj
+StringCalculator.vcxproj.filters

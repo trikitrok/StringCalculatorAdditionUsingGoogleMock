@@ -1,0 +1,1 @@
+StringCalculator addition in C++ using GoogleMock

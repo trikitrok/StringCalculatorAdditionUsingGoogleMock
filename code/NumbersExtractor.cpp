@@ -12,17 +12,20 @@ NumbersExtractor::~NumbersExtractor() {
   delete delimitersExtractor;
 }
 
-std::vector<int> NumbersExtractor::extractFrom(const std::string & numbersSequence) const {
+std::vector<int> NumbersExtractor::extractFrom(
+  const std::string & numbersSequence) const {
   return convertToInts(extractNumbersStrings(numbersSequence));
 }
 
 std::vector<std::string> NumbersExtractor::extractNumbersStrings(
   const std::string & numbersSequence) const {
-  std::vector<std::string> delimiters = delimitersExtractor->extractDelimitersList(numbersSequence);
+  std::vector<std::string> delimiters = 
+    delimitersExtractor->extractDelimitersList(numbersSequence);
   return filterOutNotNumericTokens(StringUtils::split(numbersSequence, delimiters));
 }
 
-std::vector<std::string> NumbersExtractor::filterOutNotNumericTokens(const std::vector<std::string> & tokens) const {
+std::vector<std::string> NumbersExtractor::filterOutNotNumericTokens(
+  const std::vector<std::string> & tokens) const {
   return VectorUtils::filter(tokens, StringUtils::isAnInteger);
 }
 

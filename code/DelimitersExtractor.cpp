@@ -2,14 +2,16 @@
 
 #include "StringUtils.h"
 
-DelimitersExtractor::DelimitersExtractor(const std::vector<std::string> & defaultDelimiters) {
+DelimitersExtractor::DelimitersExtractor(
+  const std::vector<std::string> & defaultDelimiters) {
   this->defaultDelimiters = defaultDelimiters;
 }
 
 DelimitersExtractor::~DelimitersExtractor() 
 {}
 
-std::vector<std::string> DelimitersExtractor::extractDelimitersList(const std::string & numbersSequence) const {
+std::vector<std::string> DelimitersExtractor::extractDelimitersList(
+  const std::string & numbersSequence) const {
   
   std::vector<std::string> delimiters(defaultDelimiters);
 
@@ -21,7 +23,8 @@ std::vector<std::string> DelimitersExtractor::extractDelimitersList(const std::s
   if (delimitersRegion.empty())
     return delimiters;
 
-  std::vector<std::string> additionalDelimiters = extractAdditionalDelimiters(delimitersRegion);
+  std::vector<std::string> additionalDelimiters = 
+    extractAdditionalDelimiters(delimitersRegion);
 
   delimiters.insert(delimiters.end(), 
     additionalDelimiters.begin(), 
@@ -57,7 +60,9 @@ std::vector<std::string> DelimitersExtractor::extractAdditionalDelimiters(
   return additionalDelimiters;
 }
 
-std::string DelimitersExtractor::extractDelimitersRegion(const std::string & numbersSequence) const {
+std::string DelimitersExtractor::extractDelimitersRegion(
+  const std::string & numbersSequence) const {
+
   int beginDelimitersRegion = numbersSequence.find("//[") + 2;
   int endDelimitersRegion = numbersSequence.find("]\n") + 1;
 

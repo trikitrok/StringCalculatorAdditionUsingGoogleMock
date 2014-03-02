@@ -34,23 +34,23 @@ std::vector<std::string> DelimitersExtractor::extractAdditionalDelimiters(
   const std::string & delimitersRegion) const {
 
   bool moreDelimiters = true;
-  std::string delimitersRegionRest = std::string(delimitersRegion);
+  std::string restOfDelimitersRegion = std::string(delimitersRegion);
 
   std::vector<std::string> additionalDelimiters;
 
   while (moreDelimiters) {
-    int beginDelimiter = delimitersRegionRest.find("[") + 1;
-    int endDelimiter = delimitersRegionRest.find("]");
+    int beginDelimiter = restOfDelimitersRegion.find("[") + 1;
+    int endDelimiter = restOfDelimitersRegion.find("]");
 
     moreDelimiters = endDelimiter != std::string::npos;
 
     if (moreDelimiters) {
       additionalDelimiters.push_back(StringUtils::extractRegion(
-        delimitersRegionRest,
+        restOfDelimitersRegion,
         beginDelimiter,
         endDelimiter));
 
-      delimitersRegionRest = delimitersRegionRest.substr(endDelimiter + 1);
+      restOfDelimitersRegion = restOfDelimitersRegion.substr(endDelimiter + 1);
     }
   }
 

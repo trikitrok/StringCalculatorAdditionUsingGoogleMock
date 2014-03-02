@@ -4,6 +4,8 @@
 #include "NumbersValidator.h"
 #include "NumbersFilter.h"
 
+#include <numeric>
+
 StringCalculator::StringCalculator(
   NumbersExtractor * numberExtractor,
   NumbersValidator * numbersValidator,
@@ -24,11 +26,7 @@ int StringCalculator::add(const std::string & numbersSequence) const {
 }
 
 int StringCalculator::add(const std::vector<int> & numbers) const {
-  int res = 0;
-  for (unsigned int i = 0; i < numbers.size(); ++i) {
-    res += numbers[i];
-  }
-  return res;
+  return std::accumulate(numbers.begin(), numbers.end(), 0);
 }
 
 std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSequence) const {

@@ -12,7 +12,7 @@ TEST(StringUtils, CanEscapeOneDelimeter) {
   ASSERT_THAT(StringUtils::escape(","), Eq(","));
 }
 
-TEST(StringUtils, CanEscapeAllDelimitersEvenThoseUsedInRegularExpressions) {
+TEST(StringUtils, CanEscapeSeveralDelimitersEvenThoseUsedInRegularExpressions) {
 
   std::vector<std::string> delimiters = {",", "*", "||", ";", "\\"};
 
@@ -28,7 +28,7 @@ TEST(StringUtils, CanSplitUsingMultipleTokens) {
     ElementsAre("1", "2", "3", "4"));
 }
 
-TEST(StringUtils, CanTellIfStringRepresentsAnInteger) {
+TEST(StringUtils, CanTellIfAGivenStringRepresentsAnInteger) {
   ASSERT_TRUE(StringUtils::isAnInteger("1"));
   ASSERT_FALSE(StringUtils::isAnInteger("15 7 8"));
   ASSERT_FALSE(StringUtils::isAnInteger("1.5"));

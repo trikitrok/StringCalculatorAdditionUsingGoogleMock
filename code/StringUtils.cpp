@@ -1,11 +1,10 @@
 #include "StringUtils.h"
 
-#include <cstdlib> 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/algorithm/string/regex.hpp>
 #include <boost/regex.hpp>
-#include <map>
+#include <unordered_map>
 
 std::vector<std::string> StringUtils::split(const std::string & str,
   const std::vector<std::string> & delimiters) {
@@ -21,7 +20,7 @@ std::vector<std::string> StringUtils::split(const std::string & str,
 }
 
 std::string StringUtils::escape(char delimiter) {
-  const std::map<char, std::string> ScapedSpecialCharacters = {
+  const std::unordered_map<char, std::string> ScapedSpecialCharacters = {
     {'.', "\\."}, {'|', "\\|"}, {'*', "\\*"}, {'?', "\\?"},
     {'+', "\\+"}, {'(', "\\("}, {')', "\\)"}, {'{', "\\{"},
     {'}', "\\}"}, {'[', "\\["}, {']', "\\]"}, {'^', "\\^"},

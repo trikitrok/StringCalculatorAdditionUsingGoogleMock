@@ -43,7 +43,6 @@ TEST_F(StringCalculatorAddition, AddsNumbersSeparatedByCommasOrNewLineCharacters
 }
 
 TEST_F(StringCalculatorAddition, AddsNumbersSeparatedByAdditionalDelimiters) {
-  ASSERT_THAT(stringCalculator->add("//[;]\n1;2"), Eq(3));
   ASSERT_THAT(stringCalculator->add("//[@]\n1@2"), Eq(3));
 }
 

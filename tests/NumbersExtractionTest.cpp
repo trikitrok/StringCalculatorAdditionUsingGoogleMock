@@ -20,8 +20,7 @@ public:
 };
 
 TEST_F(ANumbersExtractor, ReturnsEmptyListWhenItReceivesAnEmptySequence) {
-  std::vector<int> numbers = numbersExtractor->extractFrom("");
-  ASSERT_THAT(numbers, IsEmpty());
+  ASSERT_THAT(numbersExtractor->extractFrom(""), IsEmpty());
 }
 
 TEST_F(ANumbersExtractor, ReturnsTheOnlyNumberInSequence) {
@@ -37,7 +36,6 @@ TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByCommasOrNewLineCharacters) {
 }
 
 TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByAdditionalDelimitersWithOneCharacter) {
-  ASSERT_THAT(numbersExtractor->extractFrom("//[;]\n1;2"), ElementsAre(1, 2));
   ASSERT_THAT(numbersExtractor->extractFrom("//[@]\n1@2"), ElementsAre(1, 2));
 }
 

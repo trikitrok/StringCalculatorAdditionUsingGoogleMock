@@ -26,16 +26,7 @@ std::vector<std::string> NumbersExtractor::filterOutNotNumericTokens(const std::
   return VectorUtils::filter(tokens, StringUtils::isAnInteger);
 }
 
-int NumbersExtractor::convertToInt(const std::string & str) const {
-  return atoi(str.c_str());
-}
-
 std::vector<int> NumbersExtractor::convertToInts(
   const std::vector<std::string> & numbersStrings) const {
-  std::vector<int> numbers;
-  for (unsigned int i = 0; i < numbersStrings.size(); ++i) {
-    numbers.push_back(convertToInt(numbersStrings[i]));
-  }
-  return numbers;
+  return VectorUtils::map<int, std::string>(numbersStrings, StringUtils::convertToInt);
 }
-

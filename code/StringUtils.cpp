@@ -5,6 +5,7 @@
 #include <boost/algorithm/string/regex.hpp>
 #include <boost/regex.hpp>
 #include <unordered_map>
+#include <cstdlib>
 
 std::vector<std::string> StringUtils::split(const std::string & str,
   const std::vector<std::string> & delimiters) {
@@ -62,4 +63,8 @@ std::string StringUtils::extractRegion(const std::string & str,
   std::string region = "";
   int regionSize = to - from;
   return str.substr(from, regionSize);
+}
+
+int StringUtils::convertToInt(const std::string & str) {
+  return atoi(str.c_str());
 }

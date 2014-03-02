@@ -19,6 +19,8 @@ namespace StringUtils
 
   std::string extractRegion(const std::string & str,
     int from, int to);
+
+  int convertToInt(const std::string & str);
 };
 
 

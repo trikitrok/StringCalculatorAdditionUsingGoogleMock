@@ -16,4 +16,16 @@ namespace VectorUtils {
 
     return filtered;
   }
+
+  template<typename T2, typename T1, typename Function>
+  std::vector<T2> map(const std::vector<T1> & original, Function f) {
+
+    std::vector<T2> mapped;
+
+    std::transform(original.begin(), original.end(),
+      std::back_inserter(mapped),
+      f);
+
+    return mapped;
+  }
 }

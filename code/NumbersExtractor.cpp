@@ -3,6 +3,8 @@
 #include "DelimitersExtractor.h"
 #include "StringUtils.h"
 
+#include <algorithm>
+
 NumbersExtractor::NumbersExtractor(DelimitersExtractor * delimitersExtractor) {
   this->delimitersExtractor = delimitersExtractor;
 }
@@ -24,21 +26,11 @@ std::vector<std::string> NumbersExtractor::extractNumbersStrings(
 std::vector<std::string> NumbersExtractor::filterOutNotNumericTokens(const std::vector<std::string> & tokens) const {
   std::vector<std::string> numericTokens;
 
-  for (unsigned int i = 0; i < tokens.size(); ++i) {
-    std::string token = tokens[i];
-
-    if (isNotAnInteger(token)) {
-      continue;
-    }
-
-    numericTokens.push_back(tokens[i]);
-  }
+  std::copy_if(tokens.begin(), tokens.end(),
+    std::back_inserter(numericTokens),
+    StringUtils::isAnInteger);
 
   return numericTokens;
-}
-
-bool NumbersExtractor::isNotAnInteger(const std::string & token) const {
-  return ! StringUtils::isAnInteger(token);
 }
 
 int NumbersExtractor::convertToInt(const std::string & str) const {

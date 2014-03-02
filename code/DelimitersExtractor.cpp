@@ -21,29 +21,43 @@ std::vector<std::string> DelimitersExtractor::extractDelimitersList(const std::s
   if (delimitersRegion.empty())
     return delimiters;
 
-  std::string additionalDelimiter = extractAdditionalDelimiter(delimitersRegion);
+  std::vector<std::string> additionalDelimiters = extractAdditionalDelimiters(delimitersRegion);
 
-  if (additionalDelimiter != "")
-    delimiters.push_back(additionalDelimiter);
+  delimiters.insert(delimiters.end(), 
+    additionalDelimiters.begin(), 
+    additionalDelimiters.end());
 
   return delimiters;
 }
 
-std::string DelimitersExtractor::extractAdditionalDelimiter(
+std::vector<std::string> DelimitersExtractor::extractAdditionalDelimiters(
   const std::string & delimitersRegion) const {
+
+  std::vector<std::string> additionalDelimiters;
 
   int beginDelimiter = delimitersRegion.find("[") + 1;
   int endDelimiter = delimitersRegion.find("]");
-  
-  std::string additionalDelimiter = "";
+    
   if (endDelimiter != std::string::npos) {
-    additionalDelimiter = StringUtils::extractRegion(
+    additionalDelimiters.push_back(StringUtils::extractRegion(
       delimitersRegion,
       beginDelimiter,
-      endDelimiter);
+      endDelimiter));
   }
 
-  return additionalDelimiter;
+  std::string delimitersRegionRest = delimitersRegion.substr(endDelimiter + 1);
+
+  beginDelimiter = delimitersRegionRest.find("[") + 1;
+  endDelimiter = delimitersRegionRest.find("]");
+
+  if (endDelimiter != std::string::npos) {
+    additionalDelimiters.push_back(StringUtils::extractRegion(
+      delimitersRegionRest,
+      beginDelimiter,
+      endDelimiter));
+  }
+
+  return additionalDelimiters;
 }
 
 std::string DelimitersExtractor::extractDelimitersRegion(const std::string & numbersSequence) const {

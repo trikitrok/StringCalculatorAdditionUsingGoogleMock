@@ -34,3 +34,8 @@ TEST_F(ADelimitersExtractor, ExtractsDefaultAndAdditionalDelimiterWithMoreThanOn
   ASSERT_THAT(delimitersExtractor->extractDelimitersList("//[@@]\n1@2"),
     ElementsAre(",", "\n", "@@"));
 }
+
+TEST_F(ADelimitersExtractor, ExtractsDefaultAndSeveralAdditionalDelimiters) {
+  ASSERT_THAT(delimitersExtractor->extractDelimitersList("//[*][=>]\n1=>2*3"),
+    ElementsAre(",", "\n", "*", "=>"));
+}

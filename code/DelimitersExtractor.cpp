@@ -1,5 +1,7 @@
 #include "DelimitersExtractor.h"
 
+#include "StringUtils.h"
+
 DelimitersExtractor::DelimitersExtractor(const std::vector<std::string> & defaultDelimiters) {
   this->defaultDelimiters = defaultDelimiters;
 }
@@ -11,7 +13,15 @@ std::vector<std::string> DelimitersExtractor::extractDelimitersList(const std::s
   
   std::vector<std::string> delimiters(defaultDelimiters);
 
-  std::string additionalDelimiter = extractAdditionalDelimiter(numbersSequence);
+  if (numbersSequence.empty())
+    return delimiters;
+
+  std::string delimitersRegion = extractDelimitersRegion(numbersSequence);
+
+  if (delimitersRegion.empty())
+    return delimiters;
+
+  std::string additionalDelimiter = extractAdditionalDelimiter(delimitersRegion);
 
   if (additionalDelimiter != "")
     delimiters.push_back(additionalDelimiter);
@@ -20,16 +30,33 @@ std::vector<std::string> DelimitersExtractor::extractDelimitersList(const std::s
 }
 
 std::string DelimitersExtractor::extractAdditionalDelimiter(
-  const std::string & numbersSequence) const {
+  const std::string & delimitersRegion) const {
+
+  int beginDelimiter = delimitersRegion.find("[") + 1;
+  int endDelimiter = delimitersRegion.find("]");
+  
   std::string additionalDelimiter = "";
-
-  int beginDelimiter = numbersSequence.find("//[") + 3;
-  int endDelimiter = numbersSequence.find("]\n");
-  int delimiterSize = endDelimiter - beginDelimiter;
-
   if (endDelimiter != std::string::npos) {
-    additionalDelimiter = numbersSequence.substr(beginDelimiter, delimiterSize);
+    additionalDelimiter = StringUtils::extractRegion(
+      delimitersRegion,
+      beginDelimiter,
+      endDelimiter);
   }
 
   return additionalDelimiter;
+}
+
+std::string DelimitersExtractor::extractDelimitersRegion(const std::string & numbersSequence) const {
+  int beginDelimitersRegion = numbersSequence.find("//[") + 2;
+  int endDelimitersRegion = numbersSequence.find("]\n") + 1;
+
+  std::string delimitersRegion = "";
+
+  if (endDelimitersRegion != std::string::npos) {
+    delimitersRegion = StringUtils::extractRegion(
+      numbersSequence,
+      beginDelimitersRegion,
+      endDelimitersRegion);
+  }
+  return delimitersRegion;
 }

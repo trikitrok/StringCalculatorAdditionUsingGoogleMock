@@ -14,6 +14,8 @@ public:
 private:
   std::vector<std::string> defaultDelimiters;
 
-  std::string extractAdditionalDelimiter(const std::string & numbersSequence) const;
+  std::string extractAdditionalDelimiter(const std::string & delimitersRegion) const;
+
+  std::string extractDelimitersRegion(const std::string & numbersSequence) const;
 };
 

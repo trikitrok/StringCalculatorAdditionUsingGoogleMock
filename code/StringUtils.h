@@ -16,5 +16,9 @@ namespace StringUtils
     const std::vector<std::string> & delimiters);
 
   bool isAnInteger(const std::string & token);
+
+  std::string extractRegion(const std::string & str,
+    int from, int to);
 };
+
 

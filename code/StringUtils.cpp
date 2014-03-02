@@ -57,3 +57,10 @@ bool StringUtils::isAnInteger(const std::string & token) {
   const boost::regex e("\\s*[+-]?([1-9][0-9]*|0[0-7]*|0[xX][0-9a-fA-F]+)");
   return boost::regex_match(token, e);
 }
+
+std::string StringUtils::extractRegion(const std::string & str,
+  int from, int to) {
+  std::string region = "";
+  int regionSize = to - from;
+  return str.substr(from, regionSize);
+}

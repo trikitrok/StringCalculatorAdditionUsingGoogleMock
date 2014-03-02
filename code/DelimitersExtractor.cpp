@@ -1,6 +1,7 @@
 #include "DelimitersExtractor.h"
 
 #include "StringUtils.h"
+#include "VectorUtils.h"
 
 DelimitersExtractor::DelimitersExtractor(
   const std::vector<std::string> & defaultDelimiters) {
@@ -26,9 +27,7 @@ std::vector<std::string> DelimitersExtractor::extractDelimitersList(
   std::vector<std::string> additionalDelimiters = 
     extractAdditionalDelimiters(delimitersRegion);
 
-  delimiters.insert(delimiters.end(), 
-    additionalDelimiters.begin(), 
-    additionalDelimiters.end());
+  VectorUtils::append(delimiters, additionalDelimiters);
 
   return delimiters;
 }
@@ -48,10 +47,8 @@ std::vector<std::string> DelimitersExtractor::extractAdditionalDelimiters(
     moreDelimiters = endDelimiter != std::string::npos;
 
     if (moreDelimiters) {
-      additionalDelimiters.push_back(StringUtils::extractRegion(
-        restOfDelimitersRegion,
-        beginDelimiter,
-        endDelimiter));
+      additionalDelimiters.push_back(
+        StringUtils::extractRegion(restOfDelimitersRegion, beginDelimiter, endDelimiter));
 
       restOfDelimitersRegion = restOfDelimitersRegion.substr(endDelimiter + 1);
     }

@@ -28,4 +28,9 @@ namespace VectorUtils {
 
     return mapped;
   }
+
+  template<typename T>
+  void append(std::vector<T> & appendedTo, const std::vector<T> & appended) {
+    appendedTo.insert(appendedTo.end(), appended.begin(), appended.end());
+  }
 }

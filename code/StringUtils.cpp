@@ -15,12 +15,12 @@ std::vector<std::string> StringUtils::split(const std::string & str,
   boost::algorithm::split_regex(
     tokens,
     str,
-    boost::regex(boost::join(scapeDelimiters(delimiters), "|")));
+    boost::regex(boost::join(escapeDelimiters(delimiters), "|")));
 
   return tokens;
 }
 
-std::string StringUtils::scape(char delimiter) {
+std::string StringUtils::escape(char delimiter) {
   const std::map<char, std::string> ScapedSpecialCharacters = {
     {'.', "\\."}, {'|', "\\|"}, {'*', "\\*"}, {'?', "\\?"},
     {'+', "\\+"}, {'(', "\\("}, {')', "\\)"}, {'{', "\\{"},
@@ -36,19 +36,19 @@ std::string StringUtils::scape(char delimiter) {
   return it->second;
 }
 
-std::string StringUtils::scape(const std::string & delimiter) {
+std::string StringUtils::escape(const std::string & delimiter) {
   std::string scapedDelimiter = "";
   for (unsigned int i = 0; i < delimiter.length(); ++i) {
-    scapedDelimiter += scape(delimiter.at(i));
+    scapedDelimiter += escape(delimiter.at(i));
   }
   return scapedDelimiter;
 }
 
-std::vector<std::string> StringUtils::scapeDelimiters(
+std::vector<std::string> StringUtils::escapeDelimiters(
   const std::vector<std::string> & delimiters) {
   std::vector<std::string> scapedDelimiters;
   for (unsigned int i = 0; i < delimiters.size(); ++i) {
-    scapedDelimiters.push_back(scape(delimiters[i]));
+    scapedDelimiters.push_back(escape(delimiters[i]));
   }
   return scapedDelimiters;
 }

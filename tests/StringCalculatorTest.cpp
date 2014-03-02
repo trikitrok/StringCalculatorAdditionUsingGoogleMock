@@ -9,12 +9,12 @@
 
 using namespace ::testing;
 
-class StringCalculatorAddition : public Test {
+class AStringCalculator : public Test {
 public:
   StringCalculator * stringCalculator;
 
   void SetUp() {
-    std::vector<std::string> DefaultDelimiters = {",", "\n"};
+    std::vector<std::string> DefaultDelimiters{",", "\n"};
     stringCalculator = new StringCalculator(
       new NumbersExtractor(new DelimitersExtractor(DefaultDelimiters)),
       new NumbersValidator, 
@@ -26,27 +26,27 @@ public:
   }
 };
 
-TEST_F(StringCalculatorAddition, ReturnsZeroWhenItReceivesAnEmptySequence) {
+TEST_F(AStringCalculator, ReturnsZeroWhenItReceivesAnEmptySequence) {
   ASSERT_THAT(stringCalculator->add(""), Eq(0));
 }
 
-TEST_F(StringCalculatorAddition, ReturnsTheOnlyNumberInSequence) {
+TEST_F(AStringCalculator, ReturnsTheOnlyNumberInSequence) {
   ASSERT_THAT(stringCalculator->add("5"), Eq(5));
 }
 
-TEST_F(StringCalculatorAddition, AddsNumbersSeparatedByCommas) {
+TEST_F(AStringCalculator, AddsNumbersSeparatedByCommas) {
   ASSERT_THAT(stringCalculator->add("3, 4, 6"), Eq(13));
 }
 
-TEST_F(StringCalculatorAddition, AddsNumbersSeparatedByCommasOrNewLineCharacters) {
+TEST_F(AStringCalculator, AddsNumbersSeparatedByCommasOrNewLineCharacters) {
   ASSERT_THAT(stringCalculator->add("1\n2, 3"), Eq(6));
 }
 
-TEST_F(StringCalculatorAddition, AddsNumbersSeparatedByAdditionalDelimiters) {
+TEST_F(AStringCalculator, AddsNumbersSeparatedByAdditionalDelimiters) {
   ASSERT_THAT(stringCalculator->add("//[@]\n1@2"), Eq(3));
 }
 
-TEST_F(StringCalculatorAddition, ThrowsExceptionIfAnyNumberIsNegative) {
+TEST_F(AStringCalculator, ThrowsExceptionIfAnyNumberIsNegative) {
   try {
     stringCalculator->add("3, -4, 5, -6");
     FAIL();
@@ -56,10 +56,10 @@ TEST_F(StringCalculatorAddition, ThrowsExceptionIfAnyNumberIsNegative) {
   }
 }
 
-TEST_F(StringCalculatorAddition, IgnoreAnyNumberGreaterThan1000) {
+TEST_F(AStringCalculator, IgnoresAnyNumberGreaterThan1000) {
   ASSERT_THAT(stringCalculator->add("3, 1001, 6"), Eq(9));
 }
 
-TEST_F(StringCalculatorAddition, UseAdditionalDelimitersOfAnyLongitude) {
+TEST_F(AStringCalculator, UsesAdditionalDelimitersOfAnyLongitude) {
   ASSERT_THAT(stringCalculator->add("//[***]\n1***2***3"), Eq(6));
 }

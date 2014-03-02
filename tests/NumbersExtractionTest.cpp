@@ -44,3 +44,7 @@ TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByAdditionalDelimitersWithOneC
 TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByAdditionalDelimitersWithSeveralCharacters) {
   ASSERT_THAT(numbersExtractor->extractFrom("//[;;]\n1;;2"), ElementsAre(1, 2));
 }
+
+TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByAdditionalDelimitersUsedInRegularExpressions) {
+  ASSERT_THAT(numbersExtractor->extractFrom("//[*]\n1*2"), ElementsAre(1, 2));
+}

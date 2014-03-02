@@ -7,6 +7,7 @@
 #include <boost/algorithm/string/join.hpp>
 #include <boost/algorithm/string/regex.hpp>
 #include <boost/regex.hpp>
+#include <map>
 
 NumbersExtractor::NumbersExtractor(DelimitersExtractor * delimitersExtractor) {
   this->delimitersExtractor = delimitersExtractor;
@@ -24,6 +25,21 @@ std::vector<std::string> NumbersExtractor::extractNumbersStrings(
   const std::string & numbersSequence) const {
   std::vector<std::string> delimiters = delimitersExtractor->extractDelimitersList(numbersSequence);
   return filterOutNotNumericTokens(tokenize(numbersSequence, delimiters));
+}
+
+std::vector<std::string> NumbersExtractor::tokenize(const std::string & numbersSequence,
+  const std::vector<std::string> & delimiters) const {
+
+  std::vector<std::string> scapedDelimiters = scapeDelimiters(delimiters);
+
+  std::vector<std::string> tokens;
+
+  boost::algorithm::split_regex(
+    tokens,
+    numbersSequence,
+    boost::regex(boost::join(scapedDelimiters, "|")));
+
+  return tokens;
 }
 
 std::vector<std::string> NumbersExtractor::filterOutNotNumericTokens(const std::vector<std::string> & tokens) const {
@@ -60,14 +76,34 @@ std::vector<int> NumbersExtractor::convertToInts(
   return numbers;
 }
 
-std::vector<std::string> NumbersExtractor::tokenize(const std::string & numbersSequence,
-  const std::vector<std::string> & delimiters) const {
-  std::vector<std::string> tokens;
+std::string NumbersExtractor::scape(char delimiter) const {
+  const std::map<char, std::string> ScapedSpecialCharacters = {
+    {'.', "\\."}, {'|', "\\|"}, {'*', "\\*"}, {'?', "\\?"},
+    {'+', "\\+"}, {'(', "\\("}, {')', "\\)"}, {'{', "\\{"},
+    {'}', "\\}"}, {'[', "\\["}, {']', "\\]"}, {'^', "\\^"},
+    {'$', "\\$"}, {'\\', "\\\\"}
+  };
 
-  boost::algorithm::split_regex(
-    tokens, 
-    numbersSequence,
-    boost::regex(boost::join(delimiters, "|")));
+  auto it = ScapedSpecialCharacters.find(delimiter);
 
-  return tokens;
+  if (it == ScapedSpecialCharacters.end())
+    return std::string(1, delimiter);
+
+  return it->second;
+}
+
+std::string NumbersExtractor::scape(const std::string & delimiter) const {
+  std::string scapedDelimiter = "";
+  for (unsigned int i = 0; i < delimiter.length(); ++i) {
+    scapedDelimiter += scape(delimiter.at(i));
+  }
+  return scapedDelimiter;
+}
+
+std::vector<std::string> NumbersExtractor::scapeDelimiters(const std::vector<std::string> & delimiters) const {
+  std::vector<std::string> scapedDelimiters;
+  for (unsigned int i = 0; i < delimiters.size(); ++i) {
+    scapedDelimiters.push_back(scape(delimiters[i]));
+  }
+  return scapedDelimiters;
 }

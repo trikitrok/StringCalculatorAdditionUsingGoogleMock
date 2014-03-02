@@ -60,3 +60,7 @@ TEST_F(StringCalculatorAddition, ThrowsExceptionIfAnyNumberIsNegative) {
 TEST_F(StringCalculatorAddition, IgnoreAnyNumberGreaterThan1000) {
   ASSERT_THAT(stringCalculator->add("3, 1001, 6"), Eq(9));
 }
+
+TEST_F(StringCalculatorAddition, UseAdditionalDelimitersOfAnyLongitude) {
+  ASSERT_THAT(stringCalculator->add("//[***]\n1***2***3"), Eq(6));
+}

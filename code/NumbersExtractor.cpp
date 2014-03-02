@@ -2,8 +2,7 @@
 
 #include "DelimitersExtractor.h"
 #include "StringUtils.h"
-
-#include <algorithm>
+#include "VectorUtils.h"
 
 NumbersExtractor::NumbersExtractor(DelimitersExtractor * delimitersExtractor) {
   this->delimitersExtractor = delimitersExtractor;
@@ -24,13 +23,7 @@ std::vector<std::string> NumbersExtractor::extractNumbersStrings(
 }
 
 std::vector<std::string> NumbersExtractor::filterOutNotNumericTokens(const std::vector<std::string> & tokens) const {
-  std::vector<std::string> numericTokens;
-
-  std::copy_if(tokens.begin(), tokens.end(),
-    std::back_inserter(numericTokens),
-    StringUtils::isAnInteger);
-
-  return numericTokens;
+  return VectorUtils::filter(tokens, StringUtils::isAnInteger);
 }
 
 int NumbersExtractor::convertToInt(const std::string & str) const {

@@ -1,6 +1,7 @@
 #include "NumbersValidator.h"
 
 #include "NegativeNumbersException.h"
+#include "VectorUtils.h"
 
 #include <sstream>
 
@@ -11,6 +12,10 @@ NumbersValidator::~NumbersValidator()
 {}
 
 void NumbersValidator::validate(const std::vector<int> & numbers) const {
+  thowIfAnyNegative(numbers);
+}
+
+void NumbersValidator::thowIfAnyNegative(const std::vector<int> & numbers) const {
   std::vector<int> negatives = getNegatives(numbers);
 
   if (!negatives.empty()) {
@@ -19,12 +24,7 @@ void NumbersValidator::validate(const std::vector<int> & numbers) const {
 }
 
 std::vector<int> NumbersValidator::getNegatives(const std::vector<int> & numbers) const {
-  std::vector<int> negatives;
-  for (unsigned int i = 0; i < numbers.size(); ++i) {
-    if (numbers[i] < 0)
-      negatives.push_back(numbers[i]);
-  }
-  return negatives;
+  return VectorUtils::filter(numbers, [](int number) { return number < 0; });
 }
 
 std::string NumbersValidator::createNegativeNumbersListAsString(const std::vector<int> & negatives) const {

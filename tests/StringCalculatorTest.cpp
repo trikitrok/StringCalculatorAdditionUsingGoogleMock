@@ -36,10 +36,6 @@ TEST_F(AStringCalculator, ReturnsTheOnlyNumberInSequence) {
   ASSERT_THAT(stringCalculator->add("5"), Eq(5));
 }
 
-TEST_F(AStringCalculator, AddsNumbersSeparatedByCommas) {
-  ASSERT_THAT(stringCalculator->add("3, 4, 6"), Eq(13));
-}
-
 TEST_F(AStringCalculator, AddsNumbersSeparatedByCommasOrNewLineCharacters) {
   ASSERT_THAT(stringCalculator->add("1\n2, 3"), Eq(6));
 }

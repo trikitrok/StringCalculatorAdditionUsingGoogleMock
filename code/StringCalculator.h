@@ -3,24 +3,18 @@
 #include <string>
 #include <vector>
 
-class NumbersSequenceTokenizer;
-class NumbersValidator;
-class NumbersFilter;
+class NumbersExtractor;
 
 class StringCalculator
 {
 public:
-  StringCalculator(NumbersSequenceTokenizer * numbersSequenceTokenizer,
-    NumbersValidator * numbersValidator,
-    NumbersFilter * numbersFilter);
+  StringCalculator(NumbersExtractor * numbersExtractor);
   virtual ~StringCalculator();
 
   int add(const std::string & numbersSequence) const;
 
 private:
-  NumbersSequenceTokenizer * numbersSequenceTokenizer;
-  NumbersValidator * numbersValidator;
-  NumbersFilter * numbersFilter;
+  NumbersExtractor * numbersExtractor;
 
   int add(const std::vector<int> & numbers) const;
 

@@ -6,6 +6,7 @@
 #include "..\code\NumbersFilter.h"
 #include "..\code\NegativeNumbersException.h"
 #include "..\code\DelimitersExtractor.h"
+#include "..\code\NumbersExtractor.h"
 
 using namespace ::testing;
 
@@ -16,9 +17,10 @@ public:
   void SetUp() {
     std::vector<std::string> DefaultDelimiters{",", "\n"};
     stringCalculator = new StringCalculator(
-      new NumbersSequenceTokenizer(new DelimitersExtractor(DefaultDelimiters)),
-      new NumbersValidator, 
-      new NumbersFilter);
+      new NumbersExtractor(new NumbersSequenceTokenizer(
+                                 new DelimitersExtractor(DefaultDelimiters)),
+                           new NumbersValidator, 
+                           new NumbersFilter));
   }
 
   void TearDown() {

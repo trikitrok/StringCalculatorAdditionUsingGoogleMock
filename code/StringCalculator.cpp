@@ -1,22 +1,22 @@
 #include "StringCalculator.h"
 
-#include "NumbersExtractor.h"
+#include "NumbersSequenceTokenizer.h"
 #include "NumbersValidator.h"
 #include "NumbersFilter.h"
 
 #include <numeric>
 
 StringCalculator::StringCalculator(
-  NumbersExtractor * numberExtractor,
+  NumbersSequenceTokenizer * numbersSequenceTokenizer,
   NumbersValidator * numbersValidator,
   NumbersFilter * numbersFilter) {
-  this->numberExtractor = numberExtractor;
+  this->numbersSequenceTokenizer = numbersSequenceTokenizer;
   this->numbersValidator = numbersValidator;
   this->numbersFilter = numbersFilter;
 }
 
 StringCalculator::~StringCalculator() {
-  delete numberExtractor;
+  delete numbersSequenceTokenizer;
   delete numbersValidator;
   delete numbersFilter;
 }
@@ -30,7 +30,7 @@ int StringCalculator::add(const std::vector<int> & numbers) const {
 }
 
 std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSequence) const {
-  std::vector<int> numbers = numberExtractor->extractFrom(numbersSequence);
+  std::vector<int> numbers = numbersSequenceTokenizer->extractFrom(numbersSequence);
   numbersValidator->validate(numbers);
   return numbersFilter->filter(numbers);
 }

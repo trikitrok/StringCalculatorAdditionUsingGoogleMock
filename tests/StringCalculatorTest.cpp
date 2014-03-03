@@ -1,7 +1,7 @@
 #include <gmock\gmock.h>
 
 #include "..\code\StringCalculator.h"
-#include "..\code\NumbersExtractor.h"
+#include "..\code\NumbersSequenceTokenizer.h"
 #include "..\code\NumbersValidator.h"
 #include "..\code\NumbersFilter.h"
 #include "..\code\NegativeNumbersException.h"
@@ -16,7 +16,7 @@ public:
   void SetUp() {
     std::vector<std::string> DefaultDelimiters{",", "\n"};
     stringCalculator = new StringCalculator(
-      new NumbersExtractor(new DelimitersExtractor(DefaultDelimiters)),
+      new NumbersSequenceTokenizer(new DelimitersExtractor(DefaultDelimiters)),
       new NumbersValidator, 
       new NumbersFilter);
   }

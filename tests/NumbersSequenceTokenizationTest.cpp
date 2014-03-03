@@ -1,48 +1,48 @@
 #include <gmock\gmock.h>
 
-#include "..\code\NumbersExtractor.h"
+#include "..\code\NumbersSequenceTokenizer.h"
 #include "..\code\DelimitersExtractor.h"
 
 using namespace ::testing;
 
 class ANumbersExtractor : public Test {
 public:
-  NumbersExtractor * numbersExtractor;
+  NumbersSequenceTokenizer * numbersSequenceTokenizer;
 
   void SetUp() {
     std::vector<std::string> DefaultDelimiters = {",", "\n"};
-    numbersExtractor = new NumbersExtractor(new DelimitersExtractor(DefaultDelimiters));
+    numbersSequenceTokenizer = new NumbersSequenceTokenizer(new DelimitersExtractor(DefaultDelimiters));
   }
 
   void TearDown() {
-    delete numbersExtractor;
+    delete numbersSequenceTokenizer;
   }
 };
 
 TEST_F(ANumbersExtractor, ReturnsEmptyListWhenItReceivesAnEmptySequence) {
-  ASSERT_THAT(numbersExtractor->extractFrom(""), IsEmpty());
+  ASSERT_THAT(numbersSequenceTokenizer->extractFrom(""), IsEmpty());
 }
 
 TEST_F(ANumbersExtractor, ReturnsTheOnlyNumberInSequence) {
-  ASSERT_THAT(numbersExtractor->extractFrom("5"), ElementsAre(5));
+  ASSERT_THAT(numbersSequenceTokenizer->extractFrom("5"), ElementsAre(5));
 }
 
 TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByCommas) {
-  ASSERT_THAT(numbersExtractor->extractFrom("3, 4, 6"), ElementsAre(3, 4, 6));
+  ASSERT_THAT(numbersSequenceTokenizer->extractFrom("3, 4, 6"), ElementsAre(3, 4, 6));
 }
 
 TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByCommasOrNewLineCharacters) {
-  ASSERT_THAT(numbersExtractor->extractFrom("1\n2, 3"), ElementsAre(1, 2, 3));
+  ASSERT_THAT(numbersSequenceTokenizer->extractFrom("1\n2, 3"), ElementsAre(1, 2, 3));
 }
 
 TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByAdditionalDelimitersWithOneCharacter) {
-  ASSERT_THAT(numbersExtractor->extractFrom("//[@]\n1@2"), ElementsAre(1, 2));
+  ASSERT_THAT(numbersSequenceTokenizer->extractFrom("//[@]\n1@2"), ElementsAre(1, 2));
 }
 
 TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByAdditionalDelimitersWithSeveralCharacters) {
-  ASSERT_THAT(numbersExtractor->extractFrom("//[;;]\n1;;2"), ElementsAre(1, 2));
+  ASSERT_THAT(numbersSequenceTokenizer->extractFrom("//[;;]\n1;;2"), ElementsAre(1, 2));
 }
 
 TEST_F(ANumbersExtractor, ExtractsNumbersSeparatedByAdditionalDelimitersUsedInRegularExpressions) {
-  ASSERT_THAT(numbersExtractor->extractFrom("//[*]\n1*2"), ElementsAre(1, 2));
+  ASSERT_THAT(numbersSequenceTokenizer->extractFrom("//[*]\n1*2"), ElementsAre(1, 2));
 }

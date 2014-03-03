@@ -5,11 +5,11 @@
 
 class DelimitersExtractor;
 
-class NumbersExtractor
+class NumbersSequenceTokenizer
 {
 public:
-  NumbersExtractor(DelimitersExtractor * delimitersExtractor);
-  virtual ~NumbersExtractor();
+  NumbersSequenceTokenizer(DelimitersExtractor * delimitersExtractor);
+  virtual ~NumbersSequenceTokenizer();
 
   std::vector<int> extractFrom(const std::string & numbersSequence) const;
 

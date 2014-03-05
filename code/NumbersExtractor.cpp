@@ -20,7 +20,7 @@ NumbersExtractor::~NumbersExtractor() {
 }
 
 std::vector<int> NumbersExtractor::extractNumbers(const std::string & numbersSequence) const {
-  std::vector<int> numbers = numbersSequenceTokenizer->extractFrom(numbersSequence);
+  auto numbers = numbersSequenceTokenizer->extractFrom(numbersSequence);
   numbersValidator->validate(numbers);
   return numbersFilter->filter(numbers);
 }

@@ -16,7 +16,7 @@ void NumbersValidator::validate(const std::vector<int> & numbers) const {
 }
 
 void NumbersValidator::thowIfAnyNegative(const std::vector<int> & numbers) const {
-  std::vector<int> negatives = getNegatives(numbers);
+  auto negatives = getNegatives(numbers);
 
   if (!negatives.empty()) {
     throw NegativeNumbersException(createNegativeNumbersListAsString(negatives));

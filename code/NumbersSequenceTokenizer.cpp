@@ -19,8 +19,7 @@ std::vector<int> NumbersSequenceTokenizer::extractFrom(
 
 std::vector<std::string> NumbersSequenceTokenizer::extractNumbersStrings(
   const std::string & numbersSequence) const {
-  std::vector<std::string> delimiters = 
-    delimitersExtractor->extractDelimitersList(numbersSequence);
+  auto delimiters = delimitersExtractor->extractDelimitersList(numbersSequence);
   return filterOutNotNumericTokens(StringUtils::split(numbersSequence, delimiters));
 }
 

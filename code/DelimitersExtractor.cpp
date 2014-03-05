@@ -60,8 +60,8 @@ std::vector<std::string> DelimitersExtractor::extractAdditionalDelimiters(
 std::string DelimitersExtractor::extractDelimitersRegion(
   const std::string & numbersSequence) const {
 
-  int beginDelimitersRegion = numbersSequence.find("//[") + 2;
-  int endDelimitersRegion = numbersSequence.find("]\n") + 1;
+  auto beginDelimitersRegion = numbersSequence.find("//[") + 2;
+  auto endDelimitersRegion = numbersSequence.find("]\n") + 1;
 
   std::string delimitersRegion = "";
 

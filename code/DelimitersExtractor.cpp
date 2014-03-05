@@ -19,13 +19,12 @@ std::vector<std::string> DelimitersExtractor::extractDelimitersList(
   if (numbersSequence.empty())
     return delimiters;
 
-  std::string delimitersRegion = extractDelimitersRegion(numbersSequence);
+  auto delimitersRegion = extractDelimitersRegion(numbersSequence);
 
   if (delimitersRegion.empty())
     return delimiters;
 
-  std::vector<std::string> additionalDelimiters = 
-    extractAdditionalDelimiters(delimitersRegion);
+  auto additionalDelimiters = extractAdditionalDelimiters(delimitersRegion);
 
   VectorUtils::append(delimiters, additionalDelimiters);
 
@@ -36,13 +35,13 @@ std::vector<std::string> DelimitersExtractor::extractAdditionalDelimiters(
   const std::string & delimitersRegion) const {
 
   bool moreDelimiters = true;
-  std::string restOfDelimitersRegion = std::string(delimitersRegion);
+  auto restOfDelimitersRegion = std::string(delimitersRegion);
 
   std::vector<std::string> additionalDelimiters;
 
   while (moreDelimiters) {
-    int beginDelimiter = restOfDelimitersRegion.find("[") + 1;
-    int endDelimiter = restOfDelimitersRegion.find("]");
+    auto beginDelimiter = restOfDelimitersRegion.find("[") + 1;
+    auto endDelimiter = restOfDelimitersRegion.find("]");
 
     moreDelimiters = endDelimiter != std::string::npos;
 

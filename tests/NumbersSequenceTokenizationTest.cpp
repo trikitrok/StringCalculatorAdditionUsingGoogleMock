@@ -11,7 +11,8 @@ public:
 
   void SetUp() {
     std::vector<std::string> DefaultDelimiters = {",", "\n"};
-    numbersSequenceTokenizer = new NumbersSequenceTokenizer(new DelimitersExtractor(DefaultDelimiters));
+    numbersSequenceTokenizer = new NumbersSequenceTokenizer(
+      new DelimitersExtractor(DefaultDelimiters));
   }
 
   void TearDown() {

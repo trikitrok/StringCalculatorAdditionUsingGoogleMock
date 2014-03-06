@@ -4,8 +4,6 @@
 
 using namespace ::testing;
 
-
-
 class ADelimitersExtractor : public Test {
 public:
   DelimitersExtractor * delimitersExtractor;

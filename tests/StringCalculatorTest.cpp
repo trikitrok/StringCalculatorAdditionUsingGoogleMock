@@ -45,11 +45,23 @@ TEST_F(AStringCalculator, AddsNumbersSeparatedByAdditionalDelimiters) {
 }
 
 TEST_F(AStringCalculator, ThrowsExceptionIfAnyNumberIsNegative) {
+  ASSERT_THROW(stringCalculator->add("3, -4, 5, -6"), NegativeNumbersException);
+}
+
+TEST_F(AStringCalculator, ThrowsExceptionWithMessageContainingGivenText) {
   try {
     stringCalculator->add("3, -4, 5, -6");
     FAIL();
   } catch (NegativeNumbersException & e) {
     ASSERT_THAT(e.what(), HasSubstr("Negative numbers not allowed"));
+  }
+}
+
+TEST_F(AStringCalculator, ThrowsExceptionWithMessageContainingTheNegativeNumbers) {
+  try {
+    stringCalculator->add("3, -4, 5, -6");
+    FAIL();
+  } catch (NegativeNumbersException & e) {
     ASSERT_THAT(e.what(), HasSubstr("-4, -6"));
   }
 }

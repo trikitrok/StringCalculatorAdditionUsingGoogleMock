@@ -21,6 +21,8 @@ namespace StringUtils
     int from, int to);
 
   int convertToInt(const std::string & str);
+
+  std::string join(const std::vector<std::string> & tokens, const std::string & delimiter);
 };
 
 

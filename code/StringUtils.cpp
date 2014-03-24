@@ -5,7 +5,7 @@
 #include <regex>
 #include <sstream>
 
-std::string join(const std::vector<std::string> & tokens, const std::string & delimiter) {
+std::string StringUtils::join(const std::vector<std::string> & tokens, const std::string & delimiter) {
   std::stringstream stream;
   stream << tokens.front();
   std::for_each(

@@ -34,3 +34,10 @@ TEST(StringUtils, CanTellIfAGivenStringRepresentsAnInteger) {
   ASSERT_FALSE(StringUtils::isAnInteger("1.5"));
   ASSERT_FALSE(StringUtils::isAnInteger("!15"));
 }
+
+TEST(StringUtils, CanJoinAVectorOfStrings) {
+  ASSERT_THAT(StringUtils::join({"1", "2", "3"}, "|"), Eq("1|2|3"));
+  ASSERT_THAT(StringUtils::join({"1", "2", "3"}, " "), Eq("1 2 3"));
+  ASSERT_THAT(StringUtils::join({"1", "2", "3"}, ", "), Eq("1, 2, 3"));
+  ASSERT_THAT(StringUtils::join({"1", "2", "3"}, ""), Eq("123"));
+}

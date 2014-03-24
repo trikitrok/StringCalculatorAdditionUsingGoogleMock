@@ -1,7 +1,6 @@
 #include "StringUtils.h"
 
 #include <unordered_map>
-#include <cstdlib>
 #include <regex>
 #include <sstream>
 
@@ -73,5 +72,6 @@ std::string StringUtils::extractRegion(const std::string & str,
 }
 
 int StringUtils::convertToInt(const std::string & str) {
-  return atoi(str.c_str());
+  std::string::size_type sz;
+  return std::stoi(str, &sz);
 }

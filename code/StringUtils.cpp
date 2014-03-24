@@ -2,22 +2,19 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/join.hpp>
-#include <boost/algorithm/string/regex.hpp>
-#include <boost/regex.hpp>
 #include <unordered_map>
 #include <cstdlib>
+#include <regex>
 
 std::vector<std::string> StringUtils::split(const std::string & str,
   const std::vector<std::string> & delimiters) {
 
-  std::vector<std::string> tokens;
+  std::regex rgx(boost::join(escapeDelimiters(delimiters), "|"));
 
-  boost::algorithm::split_regex(
-    tokens,
-    str,
-    boost::regex(boost::join(escapeDelimiters(delimiters), "|")));
+  std::sregex_token_iterator first{str.begin(), str.end(), rgx, -1};
+  std::sregex_token_iterator last;
 
-  return tokens;
+  return {first, last};
 }
 
 std::string StringUtils::escape(char delimiter) {
@@ -54,8 +51,8 @@ std::vector<std::string> StringUtils::escapeDelimiters(
 }
 
 bool StringUtils::isAnInteger(const std::string & token) {
-  const boost::regex e("\\s*[+-]?([1-9][0-9]*|0[0-7]*|0[xX][0-9a-fA-F]+)");
-  return boost::regex_match(token, e);
+  const std::regex e("\\s*[+-]?([1-9][0-9]*|0[0-7]*|0[xX][0-9a-fA-F]+)");
+  return std::regex_match(token, e);
 }
 
 std::string StringUtils::extractRegion(const std::string & str,

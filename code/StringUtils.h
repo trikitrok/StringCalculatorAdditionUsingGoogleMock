@@ -8,12 +8,12 @@ namespace StringUtils
   std::vector<std::string> split(const std::string & str,
     const std::vector<std::string> & delimiters);
   
-  std::string escape(char delimiter);
+  std::string escapeChar(char character);
   
-  std::string escape(const std::string & delimiter);
+  std::string escapeString(const std::string & str);
   
-  std::vector<std::string> escapeDelimiters(
-    const std::vector<std::string> & delimiters);
+  std::vector<std::string> escapeStrings(
+    const std::vector<std::string> & strs);
 
   bool isAnInteger(const std::string & token);
 
@@ -22,7 +22,8 @@ namespace StringUtils
 
   int convertToInt(const std::string & str);
 
-  std::string join(const std::vector<std::string> & tokens, const std::string & delimiter);
+  std::string join(const std::vector<std::string> & tokens, 
+    const std::string & delimiter);
 };
 
 

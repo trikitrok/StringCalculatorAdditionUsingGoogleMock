@@ -5,18 +5,18 @@
 
 using namespace ::testing;
 
-TEST(StringUtils, CanEscapeOneDelimeter) {
-  EXPECT_THAT(StringUtils::escape("*"), Eq("\\*"));
-  EXPECT_THAT(StringUtils::escape("\\"), Eq("\\\\"));
-  EXPECT_THAT(StringUtils::escape("||"), Eq("\\|\\|"));
-  EXPECT_THAT(StringUtils::escape(","), Eq(","));
+TEST(StringUtils, CanEscapeOneString) {
+  EXPECT_THAT(StringUtils::escapeString("*"), Eq("\\*"));
+  EXPECT_THAT(StringUtils::escapeString("\\"), Eq("\\\\"));
+  EXPECT_THAT(StringUtils::escapeString("||"), Eq("\\|\\|"));
+  EXPECT_THAT(StringUtils::escapeString(","), Eq(","));
 }
 
-TEST(StringUtils, CanEscapeSeveralDelimitersEvenThoseUsedInRegularExpressions) {
+TEST(StringUtils, CanEscapeSeveralStringsEvenThoseUsedInRegularExpressions) {
 
   std::vector<std::string> delimiters = {",", "*", "||", ";", "\\"};
 
-  EXPECT_THAT(StringUtils::escapeDelimiters(delimiters),
+  EXPECT_THAT(StringUtils::escapeStrings(delimiters),
     ElementsAre(",", "\\*", "\\|\\|", ";", "\\\\"));
 }
 

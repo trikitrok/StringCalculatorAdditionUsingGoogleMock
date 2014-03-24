@@ -5,8 +5,8 @@
 #include <algorithm>
 
 namespace VectorUtils {
-  template<typename T, typename Function>
-  std::vector<T> filter(const std::vector<T> & original, Function pred) {
+  template<typename T, class UnaryPredicate>
+  std::vector<T> filter(const std::vector<T> & original, UnaryPredicate pred) {
 
     std::vector<T> filtered;
 
@@ -17,14 +17,14 @@ namespace VectorUtils {
     return filtered;
   }
 
-  template<typename T2, typename T1, typename Function>
-  std::vector<T2> map(const std::vector<T1> & original, Function f) {
+  template<typename T2, typename T1, class UnaryOperation>
+  std::vector<T2> map(const std::vector<T1> & original, UnaryOperation mappingFunction) {
 
     std::vector<T2> mapped;
 
     std::transform(original.begin(), original.end(),
       std::back_inserter(mapped),
-      f);
+      mappingFunction);
 
     return mapped;
   }

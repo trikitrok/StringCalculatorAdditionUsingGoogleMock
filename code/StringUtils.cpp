@@ -4,6 +4,8 @@
 #include <regex>
 #include <sstream>
 
+#include "VectorUtils.h"
+
 std::string StringUtils::join(const std::vector<std::string> & tokens, const std::string & delimiter) {
   std::stringstream stream;
   stream << tokens.front();
@@ -18,7 +20,7 @@ std::string StringUtils::join(const std::vector<std::string> & tokens, const std
 std::vector<std::string> StringUtils::split(const std::string & str,
   const std::vector<std::string> & delimiters) {
 
-  std::regex rgx(join(escapeDelimiters(delimiters), "|"));
+  std::regex rgx(join(escapeStrings(delimiters), "|"));
 
   std::sregex_token_iterator first{str.begin(), str.end(), rgx, -1};
   std::sregex_token_iterator last;
@@ -26,7 +28,7 @@ std::vector<std::string> StringUtils::split(const std::string & str,
   return {first, last};
 }
 
-std::string StringUtils::escape(char delimiter) {
+std::string StringUtils::escapeChar(char character) {
   const std::unordered_map<char, std::string> ScapedSpecialCharacters = {
     {'.', "\\."}, {'|', "\\|"}, {'*', "\\*"}, {'?', "\\?"},
     {'+', "\\+"}, {'(', "\\("}, {')', "\\)"}, {'{', "\\{"},
@@ -34,29 +36,25 @@ std::string StringUtils::escape(char delimiter) {
     {'$', "\\$"}, {'\\', "\\\\"}
   };
 
-  auto it = ScapedSpecialCharacters.find(delimiter);
+  auto it = ScapedSpecialCharacters.find(character);
 
   if (it == ScapedSpecialCharacters.end())
-    return std::string(1, delimiter);
+    return std::string(1, character);
 
   return it->second;
 }
 
-std::string StringUtils::escape(const std::string & delimiter) {
+std::string StringUtils::escapeString(const std::string & str) {
   std::string scapedDelimiter = "";
-  for (unsigned int i = 0; i < delimiter.length(); ++i) {
-    scapedDelimiter += escape(delimiter.at(i));
+  for (unsigned int i = 0; i < str.length(); ++i) {
+    scapedDelimiter += escapeChar(str.at(i));
   }
   return scapedDelimiter;
 }
 
-std::vector<std::string> StringUtils::escapeDelimiters(
+std::vector<std::string> StringUtils::escapeStrings(
   const std::vector<std::string> & delimiters) {
-  std::vector<std::string> scapedDelimiters;
-  for (unsigned int i = 0; i < delimiters.size(); ++i) {
-    scapedDelimiters.push_back(escape(delimiters[i]));
-  }
-  return scapedDelimiters;
+  return VectorUtils::map<std::string>(delimiters, escapeString);
 }
 
 bool StringUtils::isAnInteger(const std::string & token) {

@@ -1,15 +1,25 @@
 #include "StringUtils.h"
 
-#include <boost/algorithm/string.hpp>
-#include <boost/algorithm/string/join.hpp>
 #include <unordered_map>
 #include <cstdlib>
 #include <regex>
+#include <sstream>
+
+std::string join(const std::vector<std::string> & tokens, const std::string & delimiter) {
+  std::stringstream stream;
+  stream << tokens.front();
+  std::for_each(
+    begin(tokens) + 1,
+    end(tokens),
+    [&](const std::string &elem) { stream << delimiter << elem; }
+  );
+  return stream.str();
+}
 
 std::vector<std::string> StringUtils::split(const std::string & str,
   const std::vector<std::string> & delimiters) {
 
-  std::regex rgx(boost::join(escapeDelimiters(delimiters), "|"));
+  std::regex rgx(join(escapeDelimiters(delimiters), "|"));
 
   std::sregex_token_iterator first{str.begin(), str.end(), rgx, -1};
   std::sregex_token_iterator last;

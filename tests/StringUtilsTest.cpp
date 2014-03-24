@@ -6,17 +6,17 @@
 using namespace ::testing;
 
 TEST(StringUtils, CanEscapeOneDelimeter) {
-  ASSERT_THAT(StringUtils::escape("*"), Eq("\\*"));
-  ASSERT_THAT(StringUtils::escape("\\"), Eq("\\\\"));
-  ASSERT_THAT(StringUtils::escape("||"), Eq("\\|\\|"));
-  ASSERT_THAT(StringUtils::escape(","), Eq(","));
+  EXPECT_THAT(StringUtils::escape("*"), Eq("\\*"));
+  EXPECT_THAT(StringUtils::escape("\\"), Eq("\\\\"));
+  EXPECT_THAT(StringUtils::escape("||"), Eq("\\|\\|"));
+  EXPECT_THAT(StringUtils::escape(","), Eq(","));
 }
 
 TEST(StringUtils, CanEscapeSeveralDelimitersEvenThoseUsedInRegularExpressions) {
 
   std::vector<std::string> delimiters = {",", "*", "||", ";", "\\"};
 
-  ASSERT_THAT(StringUtils::escapeDelimiters(delimiters),
+  EXPECT_THAT(StringUtils::escapeDelimiters(delimiters),
     ElementsAre(",", "\\*", "\\|\\|", ";", "\\\\"));
 }
 
@@ -24,20 +24,20 @@ TEST(StringUtils, CanSplitUsingMultipleTokens) {
 
   std::vector<std::string> delimiters = {",", "*", "??"};
 
-  ASSERT_THAT(StringUtils::split("1*2??3,4", delimiters),
+  EXPECT_THAT(StringUtils::split("1*2??3,4", delimiters),
     ElementsAre("1", "2", "3", "4"));
 }
 
 TEST(StringUtils, CanTellIfAGivenStringRepresentsAnInteger) {
-  ASSERT_TRUE(StringUtils::isAnInteger("1"));
-  ASSERT_FALSE(StringUtils::isAnInteger("15 7 8"));
-  ASSERT_FALSE(StringUtils::isAnInteger("1.5"));
-  ASSERT_FALSE(StringUtils::isAnInteger("!15"));
+  EXPECT_TRUE(StringUtils::isAnInteger("1"));
+  EXPECT_FALSE(StringUtils::isAnInteger("15 7 8"));
+  EXPECT_FALSE(StringUtils::isAnInteger("1.5"));
+  EXPECT_FALSE(StringUtils::isAnInteger("!15"));
 }
 
 TEST(StringUtils, CanJoinAVectorOfStrings) {
-  ASSERT_THAT(StringUtils::join({"1", "2", "3"}, "|"), Eq("1|2|3"));
-  ASSERT_THAT(StringUtils::join({"1", "2", "3"}, " "), Eq("1 2 3"));
-  ASSERT_THAT(StringUtils::join({"1", "2", "3"}, ", "), Eq("1, 2, 3"));
-  ASSERT_THAT(StringUtils::join({"1", "2", "3"}, ""), Eq("123"));
+  EXPECT_THAT(StringUtils::join({"1", "2", "3"}, "|"), Eq("1|2|3"));
+  EXPECT_THAT(StringUtils::join({"1", "2", "3"}, " "), Eq("1 2 3"));
+  EXPECT_THAT(StringUtils::join({"1", "2", "3"}, ", "), Eq("1, 2, 3"));
+  EXPECT_THAT(StringUtils::join({"1", "2", "3"}, ""), Eq("123"));
 }

@@ -6,7 +6,8 @@
 
 #include "VectorUtils.h"
 
-std::string StringUtils::join(const std::vector<std::string> & tokens, const std::string & delimiter) {
+std::string StringUtils::join(const std::vector<std::string> & tokens, 
+  const std::string & delimiter) {
   std::stringstream stream;
   stream << tokens.front();
   std::for_each(
@@ -45,11 +46,11 @@ std::string StringUtils::escapeChar(char character) {
 }
 
 std::string StringUtils::escapeString(const std::string & str) {
-  std::string scapedDelimiter = "";
-  for (unsigned int i = 0; i < str.length(); ++i) {
-    scapedDelimiter += escapeChar(str.at(i));
-  }
-  return scapedDelimiter;
+  std::stringstream stream;
+  std::for_each(begin(str), end(str),
+    [&stream](const char character) { stream << escapeChar(character); }
+  );
+  return stream.str();
 }
 
 std::vector<std::string> StringUtils::escapeStrings(

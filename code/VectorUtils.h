@@ -10,7 +10,7 @@ namespace VectorUtils {
 
     std::vector<T> filtered;
 
-    std::copy_if(original.begin(), original.end(),
+    std::copy_if(begin(original), end(original),
       std::back_inserter(filtered),
       pred);
 
@@ -22,7 +22,7 @@ namespace VectorUtils {
 
     std::vector<T2> mapped;
 
-    std::transform(original.begin(), original.end(),
+    std::transform(begin(original), end(original),
       std::back_inserter(mapped),
       mappingFunction);
 
@@ -31,6 +31,6 @@ namespace VectorUtils {
 
   template<typename T>
   void append(std::vector<T> & appendedTo, const std::vector<T> & appended) {
-    appendedTo.insert(appendedTo.end(), appended.begin(), appended.end());
+    appendedTo.insert(end(appendedTo), begin(appended), end(appended));
   }
 }

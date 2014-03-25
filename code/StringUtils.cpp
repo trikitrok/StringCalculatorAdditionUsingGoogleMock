@@ -23,10 +23,11 @@ std::vector<std::string> StringUtils::split(const std::string & str,
 
   std::regex rgx(join(escapeStrings(delimiters), "|"));
 
-  std::sregex_token_iterator first{str.begin(), str.end(), rgx, -1};
-  std::sregex_token_iterator last;
+  std::sregex_token_iterator
+    first{begin(str), end(str), rgx, -1},
+    last;
 
-  return {first, last};
+  return{first, last};
 }
 
 std::string StringUtils::escapeChar(char character) {

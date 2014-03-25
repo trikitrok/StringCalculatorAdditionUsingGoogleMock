@@ -17,7 +17,7 @@ int StringCalculator::add(const std::string & numbersSequence) const {
 }
 
 int StringCalculator::add(const std::vector<int> & numbers) const {
-  return std::accumulate(numbers.begin(), numbers.end(), 0);
+  return std::accumulate(begin(numbers), end(numbers), 0);
 }
 
 std::vector<int> StringCalculator::extractNumbers(const std::string & numbersSequence) const {

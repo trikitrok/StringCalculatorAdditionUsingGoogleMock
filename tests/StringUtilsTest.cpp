@@ -38,10 +38,9 @@ TEST(StringUtils, CanJoinAVectorOfStrings) {
   EXPECT_THAT(StringUtils::join({"1", "2", "3"}, ""), Eq("123"));
 }
 
-TEST(StringUtils, CanSplitAndJoinAgainStrings) {
+TEST(StringUtils, CanSplitStringsAndJoinThemAgain) {
   std::string str = "1|2|3";
   std::string delimiter = "|";
-  auto tokens = StringUtils::split(str, "|");
   EXPECT_THAT(StringUtils::join(StringUtils::split(str, delimiter), delimiter),
     Eq(str));
 }

@@ -18,7 +18,6 @@ TEST(StringUtils, CanEscapeSeveralStringsEvenThoseUsedInRegularExpressions) {
 }
 
 TEST(StringUtils, CanSplitUsingMultipleTokens) {
-
   std::vector<std::string> delimiters = {",", "*", "??"};
 
   EXPECT_THAT(StringUtils::split("1*2??3,4", delimiters),

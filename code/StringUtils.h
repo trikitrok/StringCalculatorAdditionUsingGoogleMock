@@ -7,6 +7,9 @@ namespace StringUtils
 {
   std::vector<std::string> split(const std::string & str,
     const std::vector<std::string> & delimiters);
+
+  std::string join(const std::vector<std::string> & tokens,
+    const std::string & delimiter);
   
   std::string escapeChar(char character);
   
@@ -21,9 +24,6 @@ namespace StringUtils
     int from, int to);
 
   int convertToInt(const std::string & str);
-
-  std::string join(const std::vector<std::string> & tokens, 
-    const std::string & delimiter);
 };
 
 

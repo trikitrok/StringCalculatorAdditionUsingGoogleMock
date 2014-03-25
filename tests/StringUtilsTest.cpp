@@ -13,10 +13,7 @@ TEST(StringUtils, CanEscapeOneString) {
 }
 
 TEST(StringUtils, CanEscapeSeveralStringsEvenThoseUsedInRegularExpressions) {
-
-  std::vector<std::string> delimiters = {",", "*", "||", ";", "\\"};
-
-  EXPECT_THAT(StringUtils::escapeStrings(delimiters),
+  EXPECT_THAT(StringUtils::escapeStrings({",", "*", "||", ";", "\\"}),
     ElementsAre(",", "\\*", "\\|\\|", ";", "\\\\"));
 }
 

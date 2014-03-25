@@ -36,7 +36,6 @@ std::vector<std::string> StringUtils::split(const std::string & str,
   return split(str, delimiters);
 }
 
-
 std::string StringUtils::escapeChar(char character) {
   const std::unordered_map<char, std::string> ScapedSpecialCharacters = {
     {'.', "\\."}, {'|', "\\|"}, {'*', "\\*"}, {'?', "\\?"},
